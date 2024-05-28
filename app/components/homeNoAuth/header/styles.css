@@ -1,0 +1,29 @@
+.button {
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .appBar {
+    display: flex;
+    justify-content: center;
+  }
+  .tollBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .typography {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .button {
+    font-size: 12px;
+  }
+  .iconBtn {
+    margin-left: 20px;
+  }
+}
