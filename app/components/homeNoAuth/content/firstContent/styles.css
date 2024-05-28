@@ -1,0 +1,38 @@
+.containerToRepeat {
+  box-shadow: none;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.829),
+      rgba(21, 21, 21, 0.5) 80%,
+      rgb(30 41 59)
+    ),
+    /* Gradiente linear */ url("/homeNoAuth/steamPage.jpg"); /* Imagem de fundo */
+  background-size: cover;
+}
+.arrowAnimation {
+  animation: arrowUpDown 2s infinite; /* Aplica a animação com duração de 2 segundos, repetindo infinitamente */
+}
+
+@keyframes arrowUpDown {
+  0% {
+    transform: translateY(0); /* Posição inicial */
+  }
+  50% {
+    transform: translateY(-20px); /* Move 20px para cima */
+  }
+  100% {
+    transform: translateY(0); /* Volta à posição inicial */
+  }
+}
+
+@media (max-width: 412px){
+
+.mediaText{
+  font-size: 18px;
+}
+.mediaTextSml{
+  font-size: 13px;
+}
+
+
+}
