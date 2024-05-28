@@ -1,9 +1,11 @@
 import route from "@/app/api/route";
-import { Alert } from "@material-tailwind/react";
+import { Alert, Input, Typography } from "@material-tailwind/react";
+import { TextField } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import "./styles.css";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -39,9 +41,9 @@ export default function LoginForm() {
 
   return (
     <>
-      <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
+      <section className="h-screen flex  justify-center items-center gap-12 w-auto containerGrid">
         {" "}
-        <div className="md:w-1/3 max-w-sm">
+        <div className="w-auto h-auto flex">
           <Image
             src="/loginPage/steamLoginPage.png"
             alt="Sample image"
@@ -49,10 +51,11 @@ export default function LoginForm() {
             height={250}
           />
         </div>
-        <div className="md:w-1/3 max-w-sm">
+        <div className="flex flex-col w-auto h-auto bg-white rounded justify-center items-center p-10 ">
+          <Typography className="font-bold">Bem vindo de volta!</Typography>
           <form onSubmit={handleSubmit}>
             <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-              <p className="mx-4 mb-0 text-center font-semibold text-white">
+              <p className="mx-4 mb-0 text-center font-semibold text-black">
                 Sing IN
               </p>
             </div>
@@ -67,19 +70,24 @@ export default function LoginForm() {
                 false
               )}
             </div>
-            <input
-              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-              type="text"
+            <Input
+              type="email"
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             />
-            <input
-              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4"
+            <Input
+              size="lg"
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
             />
             <div className="mt-4 flex justify-between font-semibold text-sm">
               <Link
@@ -97,7 +105,7 @@ export default function LoginForm() {
                 Login
               </button>
             </div>
-            <div className="mt-4 font-semibold text-sm text-white text-center md:text-left">
+            <div className="mt-4 font-semibold text-sm text-black text-center md:text-left">
               Don't have an account?{" "}
               <Link
                 className="text-red-600 hover:underline hover:underline-offset-4"
