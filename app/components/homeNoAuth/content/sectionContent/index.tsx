@@ -1,9 +1,12 @@
 import route from "@/app/api/route";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import "./style.css";
+import Carousel from "@/app/components/commons/carousel";
+import Slide from "@/app/components/commons/carousel";
 
-export default function SectionContent() {
+export default function SectionContent({ text }: any) {
   const [posts, setPosts] = useState([]);
 
   const hardCodedPostsToTest = [
@@ -13,7 +16,7 @@ export default function SectionContent() {
       fanArtUrl:
         "https://steamuserimages-a.akamaihd.net/ugc/781854100511555950/965B7BACEE3525578C7A812798E8565B9DEB755C/?imw=1024&imh=576&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
       author: {
-        name: "User1",
+        name: "Gabriel",
       },
     },
     {
@@ -36,15 +39,51 @@ export default function SectionContent() {
     },
     {
       id: 4,
-      name: "Test3",
+      name: "Cloud",
       fanArtUrl:
-        "https://steamuserimages-a.akamaihd.net/ugc/309991900834847060/550AEB5C0A619E0E0EB11074F3EE293AF79932A4/?imw=1024&imh=576&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyjIjspTbev5qae8O7LewAYmj66KzHl-nHMw&s",
       author: {
-        name: "User4",
+        name: "User3",
+      },
+    },
+    {
+      id: 5,
+      name: "Cloud",
+      fanArtUrl:
+        "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b769aa5e-6eaa-45da-bd47-6c409802ac7d/da1h8bd-b12f1e43-a2c7-4815-a006-2ab82415c8a4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2I3NjlhYTVlLTZlYWEtNDVkYS1iZDQ3LTZjNDA5ODAyYWM3ZFwvZGExaDhiZC1iMTJmMWU0My1hMmM3LTQ4MTUtYTAwNi0yYWI4MjQxNWM4YTQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ThvK8MwEDRInzywTg15eYi0sYhKII57CgakDNhf3TNo",
+      author: {
+        name: "User3",
+      },
+    },
+    {
+      id: 6,
+      name: "Cloud",
+      fanArtUrl:
+        "https://survivetheark.com/index.php?/gallery/image/37214-griffin-steam-art/&do=download",
+      author: {
+        name: "User3",
+      },
+    },
+    {
+      id: 7,
+      name: "Cloud",
+      fanArtUrl:
+        "https://external-preview.redd.it/O5MEi5-Gq1zrf7wQNU5Dul5Uahr0yYjf_IU1HJ-BgCU.jpg?auto=webp&s=b4ef758f8ea3eff3c510c67c3d8cb668beea2ad1",
+      author: {
+        name: "User3",
+      },
+    },
+    {
+      id: 8,
+      name: "Cloud",
+      fanArtUrl:
+        "https://cdnb.artstation.com/p/assets/covers/images/050/200/471/large/jozi-pix-jozi-pix-prudence-closeup.jpg?1654278350",
+      author: {
+        name: "User3",
       },
     },
   ];
-
+  const length = hardCodedPostsToTest.length;
   //   useEffect(() => {
   //     async function fetchGames() {
   //       try {
@@ -63,21 +102,15 @@ export default function SectionContent() {
 
   return (
     <>
-      <Container>
-        <Typography>Algumas imagens da comunidade!</Typography>
-        <Box className="posts-container">
-          {hardCodedPostsToTest.map((post) => (
-            <div key={post.id} className="post">
-              <h2>{post.author.name}</h2>
-              <img
-                src={`${post.fanArtUrl}`}
-                alt={`${post.name}`}
-                width={100}
-                height={100}
-              ></img>
-            </div>
-          ))}
-        </Box>
+      <Container className="flex justify-center items-center flex-col gap-5  min-w-full h-full">
+        <Typography className="text-2xl text-indigo-600 font-bold text-center">
+          {text}
+        </Typography>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Slide posts={hardCodedPostsToTest}></Slide>
+          </Grid>
+        </Grid>
       </Container>
     </>
   );

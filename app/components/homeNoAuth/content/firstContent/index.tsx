@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function FirstContent() {
   return (
     <>
-      <Container className="flex justify-center flex-col containerToRepeat min-w-full h-72 gap-6 items-center">
+      <Container className="flex justify-center flex-col min-w-full h-72 gap-6 items-center">
         <div className="flex flex-col gap-5">
           <p className="font-bold text-gray-400 text-4xl mediaText">
             Bem vindo a comunidade de Artes feitas por fans(Fans Arts) Steam.

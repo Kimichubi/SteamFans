@@ -33,6 +33,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/server.ts"
-  ],
+, "app/components/homeNoAuth/footer/index.tsx"  ],
   "exclude": ["node_modules"]
 }
