@@ -1,11 +1,11 @@
 import route from "@/app/api/route";
-import { Alert, Input, Typography } from "@material-tailwind/react";
-import { TextField } from "@mui/material";
+import { Alert, Typography } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
+import { Input } from "@mui/material";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -71,23 +71,20 @@ export default function LoginForm() {
               )}
             </div>
             <Input
+              fullWidth
               type="email"
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              size="lg"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              className="border-t-blue-gray-200 focus:!border-t-gray-900  "
             />
             <Input
-              size="lg"
+              fullWidth
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
+              className="border-t-blue-gray-200 focus:!border-t-gray-900"
             />
             <div className="mt-4 flex justify-between font-semibold text-sm">
               <Link
