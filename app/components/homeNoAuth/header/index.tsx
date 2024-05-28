@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import "./styles.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeaderNoAuth() {
   return (
@@ -15,22 +16,25 @@ export default function HeaderNoAuth() {
       <Box sx={{ flexGrow: 1 }} minWidth={"100%"}>
         <AppBar position="static" className="appBar">
           <Toolbar className="bg-slate-950 tollBar">
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              className="iconBtn"
-            >
-              <Image
-                className="imgIcon"
-                src="/steamIcon.jpg"
-                width={40}
-                height={40}
-                alt="icon"
-              ></Image>
-            </IconButton>
+            <Link href="/">
+              {" "}
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                className="iconBtn"
+              >
+                <Image
+                  className="imgIcon"
+                  src="/steamIcon.jpg"
+                  width={40}
+                  height={40}
+                  alt="icon"
+                ></Image>
+              </IconButton>
+            </Link>
 
             <Typography
               variant="h5"
@@ -40,12 +44,19 @@ export default function HeaderNoAuth() {
             >
               Welcome to steam fans arts
             </Typography>
-            <Button className="button" color="inherit">
-              Login
-            </Button>
-            <Button className="button" color="inherit">
-              Register
-            </Button>
+            <Link href="/login">
+              {" "}
+              <Button className="button" color="inherit">
+                Login
+              </Button>
+            </Link>
+
+            <Link href="/register">
+              {" "}
+              <Button className="button" color="inherit">
+                Register
+              </Button>
+            </Link>
           </Toolbar>
         </AppBar>
       </Box>
