@@ -1,11 +1,11 @@
 import route from "@/app/api/route";
-import { Alert, Typography } from "@material-tailwind/react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
-import { Input } from "@mui/material";
+import { Alert, Input, Typography } from "@mui/material";
 
 export default function RegisterForm() {
   const router = useRouter();

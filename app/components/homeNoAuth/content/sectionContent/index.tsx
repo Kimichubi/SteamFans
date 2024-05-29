@@ -1,10 +1,9 @@
-import route from "@/app/api/route";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+"use client";
+
+import { Container, Grid, Typography } from "@mui/material";
+import { useState } from "react";
 import "./style.css";
-import Carousel from "@/app/components/commons/carousel";
-import Slide from "@/app/components/commons/carousel";
+import SlideShow from "@/app/components/commons/carousel";
 
 export default function SectionContent({ text }: any) {
   const [posts, setPosts] = useState([]);
@@ -83,7 +82,6 @@ export default function SectionContent({ text }: any) {
       },
     },
   ];
-  const length = hardCodedPostsToTest.length;
   //   useEffect(() => {
   //     async function fetchGames() {
   //       try {
@@ -102,13 +100,13 @@ export default function SectionContent({ text }: any) {
 
   return (
     <>
-      <Container className="flex justify-center items-center flex-col gap-5  min-w-full h-full">
-        <Typography className="text-2xl text-indigo-600 font-bold text-center">
+      <Container className="flex justify-center items-center flex-col gap-5 min-w-full h-full  p-6 rounded-lg ">
+        <Typography className="text-4xl text-indigo-700 font-extrabold text-center mb-4">
           {text}
         </Typography>
         <Grid container justifyContent="center">
           <Grid item>
-            <Slide posts={hardCodedPostsToTest}></Slide>
+            <SlideShow posts={hardCodedPostsToTest}></SlideShow>
           </Grid>
         </Grid>
       </Container>

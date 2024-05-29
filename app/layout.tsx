@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,10 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <header>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      <head>
         <link rel="shortcut icon" href="/steamIcon.jpg" type="image/x-icon" />
-      </header>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );

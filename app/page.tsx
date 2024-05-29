@@ -1,5 +1,4 @@
 "use client";
-
 import { Container } from "@mui/material";
 import FirstContent from "./components/homeNoAuth/content/firstContent";
 import SectionContent from "./components/homeNoAuth/content/sectionContent";
@@ -11,13 +10,11 @@ export default function Home() {
     <main className="bg-slate-800 min-w-full min-h-dvh">
       <HeaderNoAuth />
       <Container className="containerToRepeat min-w-full">
-        {" "}
         <FirstContent />
         <SectionContent text={"IMAGENS DA COMUNIDADE!"} />
         <SectionContent text={"IMAGENS MAIS CURTIDAS"} />
         <SectionContent text={"IMAGENS EM DESTAQUE"} />
       </Container>
-
       <FooterNoAuth />
     </main>
   );

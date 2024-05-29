@@ -1,16 +1,11 @@
 import route from "@/app/api/route";
-import { Alert, Typography } from "@material-tailwind/react";
+
 import Image from "next/image";
 import Link from "next/link";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
-import { Input } from "@mui/material";
+import { Alert, Input, Typography } from "@mui/material";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -44,7 +39,7 @@ export default function LoginForm() {
     formData.append("password", password);
     //@ts-ignore
     const response = await route.user.login(email, password);
-    console.log(response)
+    console.log(response);
     if (response.data.status === 200) {
       router.push("/home");
       return;

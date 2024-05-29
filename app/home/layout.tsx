@@ -1,25 +1,35 @@
-import type { Metadata } from "next";
+"use client";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  description: "Steam fan's art",
-};
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import route from "../api/route";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [user, setUser] = useState({ name: "" });
+  useEffect(() => {
+    async function FetchUserInfos() {
+      try {
+        const response = await route.user.getUserInfos();
+        if (response.status === 200) {
+          setUser({ name: response.data.message.name });
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    }
+    FetchUserInfos();
+  }, []);
+
   return (
     <html lang="en">
-      <header>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/steamIcon.jpg" type="image/x-icon" />
-      </header>
-      <body className={inter.className}>{children}</body>
+      <head>
+        <title>{`Bem vindo ${user.name}`}</title>
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
