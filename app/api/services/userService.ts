@@ -12,6 +12,16 @@ const userService = {
 
     return response;
   },
+  register: async (email: string, password: string, name: string) => {
+    const user = { email, password, name };
+
+    const response = await api.post("/register", user).catch((err) => {
+      if (err) {
+        return err;
+      }
+    });
+    return response;
+  },
 };
 
 export default userService;

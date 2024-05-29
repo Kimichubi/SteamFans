@@ -2,56 +2,45 @@ import route from "@/app/api/route";
 import { Alert, Typography } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { Input } from "@mui/material";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const router = useRouter();
-  const params = useSearchParams();
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [open, setOpen] = useState(false);
-  const [colorOpen, setColorOpen] = useState("bg-red-900");
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (params.get("registered")) {
-      setIsRegistered(true);
-      setOpen(true);
-      setColorOpen("bg-green-500");
-      setMessage("Registro bem sucedido!");
-      setTimeout(() => {
-        setOpen(false);
-        setColorOpen("bg-red-900");
-      }, 1000 * 3);
-      return;
-    }
-  }, [params]);
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("name", name);
     //@ts-ignore
-    const { response, data } = await route.login(email, password);
- 
+
+    if (password !== confirmPassword) {
+      setOpen(true);
+      setMessage("Senhas diferentes!");
+      setTimeout(() => {
+        setOpen(false);
+      }, 1000 * 3);
+      return;
+    }
+
+    const { response, status } = await route.register(email, password, name);
+
     if (!response) {
-      if (data.status === 200) {
-        sessionStorage.setItem("steam-token", data.message);
-        router.push("/home");
+      if (status === 200) {
+        router.push("/login?registered=true");
         return;
       }
-    } else if (response.status === 404) {
+    } else if (response.status === 404 || response.status === 400) {
       setOpen(true);
       setMessage(response.data.message);
       setTimeout(() => {
@@ -74,20 +63,20 @@ export default function LoginForm() {
             height={250}
           />
         </div>
-        <div className="flex flex-col w-auto h-auto bg-white rounded justify-center items-center p-10 ">
-          <Typography className="font-bold">Bem vindo de volta!</Typography>
+        <div className="flex flex-col w-2/6 h-auto bg-white rounded justify-center items-center p-10 ">
+          <Typography className="font-bold">
+            Bem vindo, por favor registre-se!
+          </Typography>
           <form onSubmit={handleSubmit}>
             <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
               <p className="mx-4 mb-0 text-center font-semibold text-black">
-                Sing IN
+                Sing Up
               </p>
             </div>
             <div className="flex flex-col justify-center items-center w-auto">
               {open === true ? (
                 <>
-                  <Alert
-                    className={`text-white ${colorOpen} font-bold text-center flex justify-center items-center text-sm mb-4`}
-                  >
+                  <Alert className="text-white font-bold text-center flex justify-center items-center bg-red-900 text-sm mb-4">
                     {message}
                   </Alert>
                 </>
@@ -96,6 +85,16 @@ export default function LoginForm() {
               )}
             </div>
             <Input
+              required
+              fullWidth
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border-t-blue-gray-200 focus:!border-t-gray-900  "
+            />
+            <Input
+              required
               fullWidth
               type="email"
               placeholder="Email Address"
@@ -104,6 +103,7 @@ export default function LoginForm() {
               className="border-t-blue-gray-200 focus:!border-t-gray-900  "
             />
             <Input
+              required
               fullWidth
               type="password"
               placeholder="Password"
@@ -111,29 +111,31 @@ export default function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               className="border-t-blue-gray-200 focus:!border-t-gray-900"
             />
-            <div className="mt-4 flex justify-between font-semibold text-sm">
-              <Link
-                className="text-blue-600 hover:text-blue-700 hover:underline hover:underline-offset-4"
-                href="/help"
-              >
-                Forgot Password?
-              </Link>
-            </div>
+            <Input
+              required
+              fullWidth
+              type="password"
+              placeholder="Confirm"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="border-t-blue-gray-200 focus:!border-t-gray-900"
+            />
+
             <div className="text-center md:text-left">
               <button
                 className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
                 type="submit"
               >
-                Login
+                Register
               </button>
             </div>
             <div className="mt-4 font-semibold text-sm text-black text-center md:text-left">
-              Don't have an account?{" "}
+              Have an account?{" "}
               <Link
                 className="text-red-600 hover:underline hover:underline-offset-4"
-                href="/register"
+                href="/login"
               >
-                Register
+                Login
               </Link>
             </div>
           </form>
