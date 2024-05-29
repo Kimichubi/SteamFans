@@ -6,10 +6,10 @@ import api from "../api";
 const postService = {
   fetchPosts: async () => {
     const response = await api.get("/posts").catch((err) => {
-      return err.message;
+      return err.response;
     });
-    const { data } = response;
-    return data;
+
+    return response;
   },
 };
 

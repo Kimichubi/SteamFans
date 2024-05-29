@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Steam fan's art",
 };
 
-export default function RootLayout({
+export default function LoginLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

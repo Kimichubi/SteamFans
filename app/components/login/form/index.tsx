@@ -43,15 +43,12 @@ export default function LoginForm() {
     formData.append("email", email);
     formData.append("password", password);
     //@ts-ignore
-    const { response, data } = await route.login(email, password);
- 
-    if (!response) {
-      if (data.status === 200) {
-        sessionStorage.setItem("steam-token", data.message);
-        router.push("/home");
-        return;
-      }
-    } else if (response.status === 404) {
+    const response = await route.user.login(email, password);
+    console.log(response)
+    if (response.data.status === 200) {
+      router.push("/home");
+      return;
+    } else {
       setOpen(true);
       setMessage(response.data.message);
       setTimeout(() => {
@@ -59,7 +56,6 @@ export default function LoginForm() {
       }, 1000 * 3);
       return;
     }
-    return;
   };
 
   return (

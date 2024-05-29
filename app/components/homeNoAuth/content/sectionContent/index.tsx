@@ -87,7 +87,7 @@ export default function SectionContent({ text }: any) {
   //   useEffect(() => {
   //     async function fetchGames() {
   //       try {
-  //         const response = await route.fetPosts();
+  //         const response = await route.posts.fetPosts();
   //         //  @ts-ignore
   //         setPosts(response.posts);
   //       } catch (error) {

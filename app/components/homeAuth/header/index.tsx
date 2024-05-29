@@ -1,3 +1,4 @@
+import route from "@/app/api/route";
 import {
   Bars3Icon,
   BellIcon,
@@ -8,11 +9,27 @@ import {
 } from "@heroicons/react/24/solid";
 import { Button, Typography } from "@material-tailwind/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function HeaderAuth() {
+  const router = useRouter();
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [user, setUser] = useState({ name: "" });
+  useEffect(() => {
+    async function FetchUserInfos() {
+      try {
+        const response = await route.user.getUserInfos();
+        if (response.status === 200) {
+          setUser({ name: response.data.message.name });
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    }
+    FetchUserInfos();
+  }, []);
 
   return (
     <>
@@ -46,7 +63,9 @@ export default function HeaderAuth() {
                       d="M17.79 9.5a2.53 2.53 0 1 0-2.53 2.5a2.54 2.54 0 0 0 2.53-2.5m-4.42 0a1.9 1.9 0 1 1 1.9 1.91a1.9 1.9 0 0 1-1.9-1.92z"
                     />
                   </svg>
-                  <Typography className="text-white">Steam Fans</Typography>
+                  <Typography className="text-white">
+                    Welcome {user.name}
+                  </Typography>
                 </Link>
               </div>
               {/* primary */}

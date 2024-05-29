@@ -33,14 +33,12 @@ export default function RegisterForm() {
       return;
     }
 
-    const { response, status } = await route.register(email, password, name);
+    const response = await route.user.register(email, password, name);
 
-    if (!response) {
-      if (status === 200) {
-        router.push("/login?registered=true");
-        return;
-      }
-    } else if (response.status === 404 || response.status === 400) {
+    if (response.data.status === 200) {
+      router.push("/login?registered=true");
+      return;
+    } else if (response.data.status === 404 || response.data.status === 400) {
       setOpen(true);
       setMessage(response.data.message);
       setTimeout(() => {
