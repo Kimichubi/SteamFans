@@ -1,6 +1,17 @@
-@media (max-width: 375px) {
-    .containerGrid {
-      flex-direction: column;
-    }
+@media (max-width: 736px) {
+  .divForm {
+    width: 50%;
+    height: auto;
+    padding: 20px;
   }
-  
+}
+
+@media (max-width: 592px) {
+  .containerGrid {
+    flex-direction: column;
+  }
+  .divForm {
+    width: auto;
+    height: auto;
+  }
+}

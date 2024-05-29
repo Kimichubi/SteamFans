@@ -63,7 +63,7 @@ export default function RegisterForm() {
             height={250}
           />
         </div>
-        <div className="flex flex-col w-2/6 h-auto bg-white rounded justify-center items-center p-10 ">
+        <div className="flex flex-col w-2/6 h-auto bg-white rounded justify-center items-center p-10 divForm">
           <Typography className="font-bold">
             Bem vindo, por favor registre-se!
           </Typography>
