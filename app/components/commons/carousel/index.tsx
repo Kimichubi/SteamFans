@@ -24,7 +24,7 @@ export default function SlideShow({ posts }: any) {
             width: slideCount * 300,
             pagination: false,
             gap: "1rem",
-            arrows: posts.length > 5,
+            arrows: posts.length > 5, 
             drag: posts.length > 5,
             breakpoints: {
               1200: {
@@ -47,7 +47,7 @@ export default function SlideShow({ posts }: any) {
         >
           {posts?.map((post: any) => (
             <SplideSlide key={post.id} className="p-4">
-              <div className="bg-white rounded-lg shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
+              <div className=" rounded-lg shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
                 <SlideCard post={post} />
               </div>
             </SplideSlide>

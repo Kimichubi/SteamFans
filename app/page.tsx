@@ -12,8 +12,6 @@ export default function Home() {
       <Container className="containerToRepeat min-w-full">
         <FirstContent />
         <SectionContent text={"IMAGENS DA COMUNIDADE!"} />
-        <SectionContent text={"IMAGENS MAIS CURTIDAS"} />
-        <SectionContent text={"IMAGENS EM DESTAQUE"} />
       </Container>
       <FooterNoAuth />
     </main>

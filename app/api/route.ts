@@ -8,8 +8,9 @@ const route = {
       const response = await postService.fetchPosts();
       return response;
     },
-    newPost: async ({ name, file }: any) => {
-      const response = await postService.newPost({ name, file });
+    newPost: async (name: string, file: any) => {
+ 
+      const response = await postService.newPost(name, file);
 
       return response;
     },
