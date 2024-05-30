@@ -11,7 +11,7 @@ export default function Home() {
       <HeaderNoAuth />
       <Container className="containerToRepeat min-w-full">
         <FirstContent />
-        <SectionContent text={"IMAGENS DA COMUNIDADE!"} />
+        <SectionContent text={"IMAGENS DA COMUNIDADE MAIS RECENTE!"} />
       </Container>
       <FooterNoAuth />
     </main>

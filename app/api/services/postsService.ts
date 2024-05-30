@@ -4,10 +4,26 @@ import api from "../api";
 
 // Função para obter a lista de jogos
 const postService = {
+  //No Token
   fetchPosts: async () => {
     const response = await api.get("/get/posts").catch((err) => {
       return err.response;
     });
+
+    return response;
+  },
+  // Token
+  recentlyPosts: async () => {
+    const token = sessionStorage.getItem("steam-token");
+    const response = await api
+      .get("/get/posts/recently", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        return err.response;
+      });
 
     return response;
   },
