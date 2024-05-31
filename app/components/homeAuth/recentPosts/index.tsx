@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import SlideShow from "../../commons/carousel";
 import route from "@/app/api/route";
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  CircularProgress,
+} from "@mui/material"; // Adicionando CircularProgress para o loading
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 export default function RecentPosts({ text }: any) {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado para controlar o loading
 
   useEffect(() => {
     const getRecentlyPosts = async () => {
@@ -13,25 +22,84 @@ export default function RecentPosts({ text }: any) {
       if (response.status === 200) {
         console.log(response.data.message);
         setPosts(response.data.message);
+        setLoading(false); // Alterando o estado para indicar que as imagens foram carregadas
         return;
       }
     };
     getRecentlyPosts();
-   
   }, []);
 
   return (
-    <>
-      <Container className="flex justify-center items-center flex-col gap-5 min-w-full h-full  p-6 rounded-lg ">
-        <Typography className="text-4xl text-black text-center mb-4 font-bold">
-          {text}
-        </Typography>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <SlideShow posts={posts}></SlideShow>
-          </Grid>
+    <Box
+      className="flex flex-col items-center gap-6 h-full p-8 rounded-lg relative"
+      style={{
+        margin: "auto",
+        backdropFilter: "blur(10px)", // Adicionando um efeito de desfoque ao fundo
+      }}
+    >
+      {loading && ( // Mostrando o CircularProgress enquanto as imagens estão sendo carregadas
+        <CircularProgress
+          style={{ position: "absolute", top: "50%", left: "50%" }}
+        />
+      )}
+      <Box
+        className="absolute top-0 left-0 w-full h-full bg-white opacity-10 rounded-lg"
+        style={{ zIndex: -1 }}
+      />
+      <Typography
+        className="text-5xl font-bold text-white text-center mb-2 relative"
+        style={{
+          fontFamily: "'Roboto', sans-serif",
+          textShadow: "0 2px 4px rgba(0,0,0,0.2)",
+        }} // Adicionando uma sombra ao texto
+      >
+        {text}
+        <Box
+          component="span"
+          sx={{
+            position: "absolute",
+            left: "50%",
+            bottom: "-10px",
+            width: "100px",
+            height: "4px",
+            backgroundColor: "#00bfa5",
+            transform: "translateX(-50%)",
+            borderRadius: "2px",
+          }}
+        />
+      </Typography>
+      <Typography
+        className="text-lg text-white  text-center mb-6 relative"
+        style={{ fontFamily: "'Roboto', sans-serif" }}
+      >
+        Welcome to our Fan Art Gallery! Here you can explore the latest fan arts
+        created by our talented community members. From breathtaking
+        illustrations to stunning digital art, you ll find a wide range of
+        creative expressions to inspire and admire. Feel free to browse through
+        the slideshow and discover the latest posts and trends from our
+        community.
+      </Typography>
+      <Grid container justifyContent="center" spacing={4}>
+        <Grid item xs={12}>
+          {!loading && ( // Renderizando o SlideShow apenas quando as imagens estiverem carregadas
+            <SlideShow posts={posts} />
+          )}
         </Grid>
-      </Container>
-    </>
+      </Grid>
+      <Box className="flex justify-center mt-6 space-x-8 bg-gray-200 bg-opacity-20 rounded-lg pointer-events-none">
+        <Box className="flex items-center space-x-2">
+          <ThumbUpIcon style={{ color: "#00bfa5" }} />
+          <Typography className="text-lg text-white font-semibold">
+            Likes
+          </Typography>
+        </Box>
+        <Box className="flex items-center space-x-2 ">
+          <FavoriteIcon style={{ color: "#e57373" }} />
+          <Typography className="text-lg text-white font-semibold">
+            Favorites
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 }
