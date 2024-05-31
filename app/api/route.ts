@@ -12,6 +12,14 @@ const route = {
       const response = await postService.recentlyPosts();
       return response;
     },
+    likedPosts: async () => {
+      const response = await postService.likedsPosts();
+      return response;
+    },
+    favoritedPosts: async () => {
+      const response = await postService.favoritedPosts();
+      return response;
+    },
     newPost: async (name: string, file: any) => {
       const response = await postService.newPost(name, file);
 

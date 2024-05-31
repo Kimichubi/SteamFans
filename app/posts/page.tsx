@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <HeaderAuth />
-      <Container className="imageToRepeat min-w-full h-screen flex flex-col justify-center ">
+      <Container className="postContainerImgRepeat min-w-full h-screen flex flex-col justify-center ">
         {" "}
         <PostForm />
         <FooterNoAuth />

@@ -18,7 +18,7 @@ export default function RecentPosts({ text }: any) {
 
   useEffect(() => {
     const getRecentlyPosts = async () => {
-      const response = await route.posts.recentlyPosts();
+      const response = await route.posts.likedPosts();
 
       if (response.status === 200) {
         console.log(response.data.message);
@@ -31,7 +31,7 @@ export default function RecentPosts({ text }: any) {
   }, []);
 
   return (
-    <Box className="containerRepeatImgRecent">
+    <Box className="containerRepeatImgLiked">
       <Box
         className="flex flex-col items-center gap-6 h-full p-8 rounded-lg relative"
         style={{ margin: "auto" }}

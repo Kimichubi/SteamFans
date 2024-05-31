@@ -1,0 +1,7 @@
+.containerRepeatImgFavorited {
+  box-shadow: none;
+  background-image: url("/home/codWarzoneBackground.jpg"); /* Imagem de fundo */    
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}

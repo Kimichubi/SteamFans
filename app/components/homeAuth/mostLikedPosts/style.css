@@ -1,0 +1,8 @@
+.containerRepeatImgLiked {
+  box-shadow: none;
+  background-image: url("/home/backgroundMostLiked.png"); /* Imagem de fundo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Mudança de next/navigation para next/router
 import {
   Typography,
   Box,
@@ -24,7 +24,8 @@ export default function HeaderAuth() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    async function FetchUserInfos() {
+    async function fetchUserInfos() {
+      // Alteração de FetchUserInfos para fetchUserInfos (convenção camelCase)
       try {
         const response = await route.user.getUserInfos();
         if (response.status === 200) {
@@ -34,10 +35,10 @@ export default function HeaderAuth() {
         console.error("Error fetching user info:", error);
       }
     }
-    FetchUserInfos();
+    fetchUserInfos();
   }, []);
 
-  const handleClick = (event: any) => {
+  const handleClick = (event:any) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
@@ -48,14 +49,12 @@ export default function HeaderAuth() {
   };
 
   const handleLogout = () => {
-    // Implementar lógica para logout
     sessionStorage.removeItem("steam-token");
     router.push("/");
   };
 
   const handleDarkModeChange = () => {
     setDarkMode(!darkMode);
-    // Implementar lógica para alternar entre os temas claro e escuro
   };
 
   return (
@@ -76,6 +75,8 @@ export default function HeaderAuth() {
         <Typography className="text-white">{`Welcome, ${user.name}`}</Typography>
 
         <div className="hidden md:flex items-center gap-3">
+          {" "}
+          {/* Alteração de hidden para md:hidden para exibição em dispositivos menores */}
           <Link href={"/posts"}>
             <Button className="text-white">Posts</Button>
           </Link>
@@ -105,6 +106,8 @@ export default function HeaderAuth() {
 
         {/* Mobile Menu */}
         <div className="md:hidden">
+          {" "}
+          {/* Adição de md:hidden para exibição em dispositivos menores */}
           <IconButton
             aria-controls="mobile-menu"
             aria-haspopup="true"

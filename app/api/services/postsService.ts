@@ -27,6 +27,34 @@ const postService = {
 
     return response;
   },
+  likedsPosts: async () => {
+    const token = sessionStorage.getItem("steam-token");
+    const response = await api
+      .get("/posts/likes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
+  favoritedPosts: async () => {
+    const token = sessionStorage.getItem("steam-token");
+    const response = await api
+      .get("/posts/favoriteds", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
   newPost: async (name: string, fanArtUrl: any) => {
     const token = sessionStorage.getItem("steam-token");
     const body = { name, fanArtUrl };
