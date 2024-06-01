@@ -56,9 +56,20 @@ export default function PageCategory() {
     const getCategory = async () => {
       try {
         const response = await route.category.getOneCategory(Number(router.id));
+
         if (response.data.status === 200) {
-          setCategoria(response.data.message.followingCategories);
-          console.log(response.data.message.followingCategories)
+          setCategoria(response.data.message);
+          const newresponse = await route.user.isFollowingCategory(
+            Number(router.id)
+          );
+          if (newresponse.status === 200) {
+            setFollowing(true);
+            return;
+          } else {
+            setFollowing(false);
+            return;
+          }
+          return;
         } else {
           setError("Failed to fetch category");
         }
@@ -69,7 +80,7 @@ export default function PageCategory() {
       }
     };
     getCategory();
-  }, [router.id]);
+  }, []);
 
   const handleLikeCategory = () => {
     // Handle like category logic here

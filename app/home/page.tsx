@@ -11,9 +11,11 @@ export default function HomePage() {
   return (
     <>
       <HeaderAuth />
-      <SectionContent />
-      <Categorys />
-      <YourFavoritedCategorys />
+      <Container className="containerTest min-w-full h-auto">
+        <SectionContent />
+        <Categorys />
+        <YourFavoritedCategorys />
+      </Container>
     </>
   );
 }

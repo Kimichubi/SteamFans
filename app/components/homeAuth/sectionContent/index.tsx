@@ -35,20 +35,7 @@ export default function SectionContent() {
       }}
     >
       {/* Elemento para imagem de fundo com desfoque */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundImage: "url('/home/backgroundFirstContent.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(1px)", // Aplica o desfoque apenas à imagem de fundo
-          zIndex: -1, // Coloca a imagem de fundo por trás do conteúdo
-        }}
-      />
+
       <Container className="bg-gray-200 bg-opacity-20 rounded-lg  p-4">
         <Typography
           variant="h2"

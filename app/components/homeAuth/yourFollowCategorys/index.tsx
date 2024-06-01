@@ -17,7 +17,7 @@ export default function YourFavoritedCategorys() {
     };
     fetchCategories();
   }, [page]);
-//@ts-ignore
+  //@ts-ignore
   const handleChangePage = (event, value) => {
     setPage(value);
   };
@@ -41,10 +41,9 @@ export default function YourFavoritedCategorys() {
         width: "100%",
         height: "100%",
         padding: "20px",
-        backgroundImage: "url(/home/baseForFollowing.jpg)",
       }}
     >
-      <Container>
+      <Container className=" bg-gradient-to-b  bg-zinc-700 rounded-md">
         <Typography
           className="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white"
           gutterBottom
@@ -59,8 +58,7 @@ export default function YourFavoritedCategorys() {
         ) : (
           <>
             <p className="font-bold text-white">
-              Você ainda não seguiu nenhuma categoria, explore este vasto mundo
-              e depois volte aqui!
+              Isso é tudo, siga mais categorias!
             </p>
           </>
         )}
@@ -71,16 +69,22 @@ export default function YourFavoritedCategorys() {
             </Typography>
           </div>
         ) : null}
-        <Pagination
-          count={Math.ceil(categorias.length / itemsPerPage)}
-          page={page}
-          onChange={handleChangePage}
-          style={{
-            marginTop: "20px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
+        <div className="flex justify-center items-center ">
+          {" "}
+          <Pagination
+            count={Math.ceil(categorias.length / itemsPerPage)}
+            page={page}
+            onChange={handleChangePage}
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+
+              alignItems: "center",
+              width: "25%",
+            }}
+          />
+        </div>
         <div style={{ textAlign: "center", marginTop: "10px" }}>
           <Button variant="contained" onClick={handlePrevPage}>
             Anterior

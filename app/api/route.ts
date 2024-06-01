@@ -61,6 +61,10 @@ const route = {
       const response = await userService.getFollowingCategorys(page);
       return response;
     },
+    isFollowingCategory: async (categoryId: number) => {
+      const response = await userService.isFollowingCategory(categoryId);
+      return response;
+    },
   },
 };
 

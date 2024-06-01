@@ -8,7 +8,7 @@ export default function SlideShowCategorys({ categorias }: any) {
   let slideCount = 3;
 
   return (
-    <div className="relative flex justify-center items-center py-4 p-6 rounded-lg shadow-lg">
+    <div className="relative flex justify-center items-center py-4 p-6 rounded-lg shadow-lg ">
       {/* Sobreposição transparente */}
       <div className="absolute inset-0 bg-opacity-20 rounded-lg pointer-events-none "></div>
 
@@ -21,8 +21,8 @@ export default function SlideShowCategorys({ categorias }: any) {
           width: slideCount * 300,
           pagination: false,
           gap: "1rem",
-          arrows: categorias.length > 5,
-          drag: categorias.length > 5,
+          arrows: categorias.length > 3,
+          drag: categorias.length > 3,
           breakpoints: {
             1200: {
               perPage: slideCount >= 5 ? 4 : 3,

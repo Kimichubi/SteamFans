@@ -62,6 +62,27 @@ const userService = {
 
     return response;
   },
+  isFollowingCategory: async (categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/user/isFollowing`,
+        { categoryId: Number(categoryId) },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
 };
 
 export default userService;

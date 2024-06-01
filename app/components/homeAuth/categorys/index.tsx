@@ -48,9 +48,8 @@ const Categorys = () => {
         height: "100%",
         padding: "20px",
       }}
-      className="bg-gradient-to-br from-cyan-500 to-blue-500"
     >
-      <Container className="">
+      <Container className=" bg-gradient-to-b  bg-zinc-700 rounded-md ">
         <Typography
           className="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white"
           gutterBottom
