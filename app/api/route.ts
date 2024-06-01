@@ -1,3 +1,4 @@
+import categoryService from "./services/categoryService";
 import postService from "./services/postsService";
 import userService from "./services/userService";
 
@@ -20,13 +21,28 @@ const route = {
       const response = await postService.favoritedPosts();
       return response;
     },
-    newPost: async (name: string, file: any) => {
-      const response = await postService.newPost(name, file);
+    newPost: async (name: string, file: any, categoryId: number) => {
+      const response = await postService.newPost(name, file, categoryId);
 
       return response;
     },
   },
+  category: {
+    getAllCategory: async (page: number) => {
+      const response = await categoryService.getAllCategorys(page);
+      return response;
+    },
+    getOneCategory: async (categoryId: number) => {
+      const response = await categoryService.getOneCategory(categoryId);
 
+      return response;
+    },
+    followCategory: async (categoryId: number) => {
+      const response = await categoryService.followCategory(categoryId);
+
+      return response;
+    },
+  },
   //User
   user: {
     login: async (email: string, password: string) => {
@@ -39,6 +55,10 @@ const route = {
     },
     getUserInfos: async () => {
       const response = await userService.getUserInfos();
+      return response;
+    },
+    getUserFollowingCategorys: async (page: number) => {
+      const response = await userService.getFollowingCategorys(page);
       return response;
     },
   },

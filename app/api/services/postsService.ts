@@ -55,9 +55,9 @@ const postService = {
 
     return response;
   },
-  newPost: async (name: string, fanArtUrl: any) => {
+  newPost: async (name: string, fanArtUrl: any, categoryId: number) => {
     const token = sessionStorage.getItem("steam-token");
-    const body = { name, fanArtUrl };
+    const body = { name, fanArtUrl, categoryId };
     const response = await api
       .post("/upload", body, {
         headers: {
@@ -69,7 +69,7 @@ const postService = {
         console.log(err.response.data);
         return err.response;
       });
-    console.log(response);
+
     return response;
   },
 };
