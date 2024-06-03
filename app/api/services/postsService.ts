@@ -152,6 +152,24 @@ const postService = {
 
     return response;
   },
+  postById: async (postId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+    const response = await api
+      .post(
+        "/posts/id",
+        { postId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
 };
 
 export default postService;

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SlideCard({ post }: any) {
   return (
     <div className="relative cursor-pointer max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
-      <Link href={`/post/${post.id}`}>
+      <Link href={`/register`}>
         <div className="p-4">
           <p className="text-lg font-bold text-center text-gray-700">
             {post.author.name}

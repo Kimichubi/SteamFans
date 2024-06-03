@@ -1,6 +1,7 @@
 "use client";
 import route from "@/app/api/route";
 import HeaderAuth from "@/app/components/homeAuth/header";
+import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import {
   Container,
   CircularProgress,
@@ -9,13 +10,14 @@ import {
   CardContent,
   CardMedia,
   IconButton,
+  Button,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import FooterNoAuth from "@/app/components/homeNoAuth/footer";
 
 // Define the category type
 interface Category {
@@ -107,7 +109,6 @@ export default function PageCategory() {
       await route.posts.likePost(Number(postId), Number(router.id));
     }
     window.location.reload();
-    return;
   };
 
   const handleFavoritePost = async (postId: number) => {
@@ -121,7 +122,6 @@ export default function PageCategory() {
       await route.posts.favoritePost(Number(postId), Number(router.id));
     }
     window.location.reload();
-    return;
   };
 
   if (loading) {
@@ -239,6 +239,7 @@ export default function PageCategory() {
             </div>
           </div>
         )}
+        <FooterNoAuth />
       </Container>
     </>
   );

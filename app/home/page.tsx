@@ -6,6 +6,13 @@ import SectionContent from "../components/homeAuth/sectionContent";
 
 import Categorys from "../components/homeAuth/categorys";
 import YourFavoritedCategorys from "../components/homeAuth/yourFollowCategorys";
+import FooterNoAuth from "../components/homeNoAuth/footer";
+
+
+
+
+
+
 
 export default function HomePage() {
   return (
@@ -14,7 +21,8 @@ export default function HomePage() {
       <Container className="containerTest min-w-full h-auto">
         <SectionContent />
         <Categorys />
-        <YourFavoritedCategorys />
+        {/* <YourFavoritedCategorys /> */}
+        <FooterNoAuth />
       </Container>
     </>
   );

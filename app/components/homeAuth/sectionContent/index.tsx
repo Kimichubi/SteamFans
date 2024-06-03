@@ -31,16 +31,17 @@ export default function SectionContent() {
         justifyContent: "center",
         textAlign: "center",
         padding: "2rem",
-        animation: "fadeIn 1s ease-in-out", // Animação de fade-in
+        animation: "fadeIn 1s ease-in-out",
+        // Animação de fade-in
       }}
     >
       {/* Elemento para imagem de fundo com desfoque */}
 
-      <Container className="bg-gray-200 bg-opacity-20 rounded-lg  p-4">
+      <Container className="bg-gray-900 bg-opacity-20 rounded-lg  p-4">
         <Typography
           variant="h2"
           sx={{
-            color: "#FFFFFF", // Cor de texto mais escura
+            color: "GrayText", // Cor de texto mais escura
             mb: 2,
             animation: "slideInDown 1s ease-in-out",
             fontFamily: "Roboto, sans-serif",
@@ -55,7 +56,7 @@ export default function SectionContent() {
           variant="body1"
           className=""
           sx={{
-            color: "#FFFFFF", // Cor de texto mais escura
+            color: "GrayText", // Cor de texto mais escura
             mb: 4,
             animation: "slideInUp 1s ease-in-out",
             fontFamily: "Roboto, sans-serif",
@@ -70,7 +71,7 @@ export default function SectionContent() {
           fontWeight={"bold"}
           variant="body2"
           sx={{
-            color: "#FFFFFF", // Cor de texto mais escura
+            color: "#GrayText", // Cor de texto mais escura
             animation: "pulse 1s infinite alternate",
             fontFamily: "Roboto, sans-serif",
             fontSize: "1rem",
@@ -82,7 +83,7 @@ export default function SectionContent() {
         <Box mt={4}>
           <Typography
             variant="body2"
-            sx={{ color: "#FFFFFF", mb: 2 }}
+            sx={{ color: "GrayText", mb: 2 }}
             fontWeight={"bold"}
           >
             Share your creations:
@@ -97,7 +98,7 @@ export default function SectionContent() {
                 cursor: "pointer",
                 "&:hover": {
                   backgroundColor: "black", // Cor de fundo no hover
-                  color: "#FFFFFF", // Cor do texto no hover
+                  color: "GrayText", // Cor do texto no hover
                 },
               }}
             >
@@ -106,7 +107,7 @@ export default function SectionContent() {
           </Link>
           <Typography
             variant="body2"
-            sx={{ color: "#FFFFFF", mb: 2 }}
+            sx={{ color: "GrayText", mb: 2 }}
             fontWeight={"bold"}
           >
             Manage your profile:

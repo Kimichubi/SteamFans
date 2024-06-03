@@ -38,7 +38,7 @@ export default function HeaderAuth() {
     fetchUserInfos();
   }, []);
 
-  const handleClick = (event:any) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
@@ -83,7 +83,12 @@ export default function HeaderAuth() {
           <Link href={"/profile"}>
             <Button className="text-white">Profile</Button>
           </Link>
-          <Input type="text" placeholder="Search" />
+          <Input
+            color="secondary"
+            className="text-white"
+            type="text"
+            placeholder="Search"
+          />
           <Button>
             <svg
               className="w-6 h-6 text-white"
@@ -152,11 +157,11 @@ export default function HeaderAuth() {
             </MenuItem>
           </Menu>
         </div>
-        <div>
+        {/* <div>
           <IconButton onClick={handleDarkModeChange} className="text-white">
             {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-        </div>
+        </div> */}
         <div>
           <Button onClick={handleLogout} className="text-white">
             Logout

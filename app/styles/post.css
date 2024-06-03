@@ -6,6 +6,6 @@
       rgba(21, 21, 21, 0.5) 80%,
       rgb(30 41 59)
     ),
-    /* Gradiente linear */ url("/formPost/steamForm.jpg"); /* Imagem de fundo */
-  background-size: cover;
+    /* Gradiente linear */ url("/megumin-animation.gif"); /* Imagem de fundo */
+  background-size: contain;
 }

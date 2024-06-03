@@ -46,6 +46,11 @@ const route = {
 
       return response;
     },
+    postById: async (postId: number) => {
+      const response = await postService.postById(Number(postId));
+
+      return response;
+    },
   },
   category: {
     getAllCategory: async (page: number) => {
