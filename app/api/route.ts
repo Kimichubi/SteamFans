@@ -103,6 +103,20 @@ const route = {
       const response = await userService.isFavorited(categoryId, postId);
       return response;
     },
+    updateUserInfo: async (email: string, name: string) => {
+      const response = await userService.updateUserInfo(email, name);
+      return response;
+    },
+    updateUserPassword: async (
+      currentPassword: string,
+      newPassword: string
+    ) => {
+      const response = await userService.updateUserPassword(
+        currentPassword,
+        newPassword
+      );
+      return response;
+    },
   },
 };
 

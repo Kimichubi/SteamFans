@@ -125,6 +125,48 @@ const userService = {
 
     return response;
   },
+  updateUserInfo: async (email: string, name: string) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .put(
+        `/user/update`,
+        { name, email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
+  updateUserPassword: async (currentPassword: string, newPassword: string) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .put(
+        `/user/update/password`,
+        { currentPassword, newPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
 };
 
 export default userService;

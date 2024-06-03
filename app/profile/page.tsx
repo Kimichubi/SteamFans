@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import HeaderAuth from "../components/homeAuth/header";
+import AccountInfo from "../components/profile/accountInfo";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("accountInfo");
@@ -72,7 +73,7 @@ export default function ProfilePage() {
         {activeTab === "accountInfo" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Informações da Conta</h2>
-            {/* Conteúdo das informações da conta */}
+            <AccountInfo />
           </div>
         )}
 
