@@ -26,6 +26,26 @@ const route = {
 
       return response;
     },
+    likePost: async (postId: number, categoryId: number) => {
+      const response = await postService.likePost(postId, categoryId);
+
+      return response;
+    },
+    unLikePost: async (postId: number, categoryId: number) => {
+      const response = await postService.unLikePost(postId, categoryId);
+
+      return response;
+    },
+    favoritePost: async (postId: number, categoryId: number) => {
+      const response = await postService.favoritePost(postId, categoryId);
+
+      return response;
+    },
+    unFavoritePost: async (postId: number, categoryId: number) => {
+      const response = await postService.unFavoritePost(postId, categoryId);
+
+      return response;
+    },
   },
   category: {
     getAllCategory: async (page: number) => {
@@ -39,6 +59,11 @@ const route = {
     },
     followCategory: async (categoryId: number) => {
       const response = await categoryService.followCategory(categoryId);
+
+      return response;
+    },
+    unFollowCategory: async (categoryId: number) => {
+      const response = await categoryService.unFollowCategory(categoryId);
 
       return response;
     },
@@ -63,6 +88,14 @@ const route = {
     },
     isFollowingCategory: async (categoryId: number) => {
       const response = await userService.isFollowingCategory(categoryId);
+      return response;
+    },
+    isLikedPost: async (categoryId: number, postId: number) => {
+      const response = await userService.isLiked(categoryId, postId);
+      return response;
+    },
+    isFavoritedPost: async (categoryId: number, postId: number) => {
+      const response = await userService.isFavorited(categoryId, postId);
       return response;
     },
   },

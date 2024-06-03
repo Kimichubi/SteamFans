@@ -72,6 +72,86 @@ const postService = {
 
     return response;
   },
+  likePost: async (postId: number, categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/like`,
+        { postId, categoryId },
+        {
+          // Adicione o parâmetro de página na URL
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
+  unLikePost: async (postId: number, categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/like/delete`,
+        { postId, categoryId },
+        {
+          // Adicione o parâmetro de página na URL
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
+  favoritePost: async (postId: number, categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/favorite`,
+        { postId, categoryId },
+        {
+          // Adicione o parâmetro de página na URL
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
+  unFavoritePost: async (postId: number, categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/favorite/delete`,
+        { postId, categoryId },
+        {
+          // Adicione o parâmetro de página na URL
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
 };
 
 export default postService;

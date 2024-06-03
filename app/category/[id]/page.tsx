@@ -52,6 +52,8 @@ export default function PageCategory() {
   const [error, setError] = useState<string | null>(null);
   const [following, setFollowing] = useState(false);
 
+  const [posts, setPosts] = useState<null | Post>(null);
+
   useEffect(() => {
     const getCategory = async () => {
       try {
@@ -59,19 +61,16 @@ export default function PageCategory() {
 
         if (response.data.status === 200) {
           setCategoria(response.data.message);
+          setPosts(response.data.message.posts);
+
           const newresponse = await route.user.isFollowingCategory(
             Number(router.id)
           );
           if (newresponse.status === 200) {
             setFollowing(true);
-            return;
           } else {
             setFollowing(false);
-            return;
           }
-          return;
-        } else {
-          setError("Failed to fetch category");
         }
       } catch (err) {
         setError("An error occurred");
@@ -82,29 +81,47 @@ export default function PageCategory() {
     getCategory();
   }, []);
 
-  const handleLikeCategory = () => {
-    // Handle like category logic here
-  };
-
-  const handleFavoriteCategory = () => {
-    // Handle favorite category logic here
-  };
-
   const handleFollowCategory = async (categoryId: number) => {
-    // Handle follow category logic here
-    const follow = await route.category.followCategory(categoryId);
-    if (follow.data.status === 200) {
-      setFollowing(true);
-      return;
+    if (following) {
+      const response = await route.category.unFollowCategory(categoryId);
+      if (response.status === 200) {
+        setFollowing(false);
+      }
+    } else {
+      const response = await route.category.followCategory(categoryId);
+      if (response.data.status === 200) {
+        setFollowing(true);
+      }
     }
+    window.location.reload();
   };
 
-  const handleLikePost = (postId: number) => {
-    // Handle like post logic here
+  const handleLikePost = async (postId: number) => {
+    const response = await route.user.isLikedPost(
+      Number(router.id),
+      Number(postId)
+    );
+    if (response.status === 200) {
+      await route.posts.unLikePost(Number(postId), Number(router.id));
+    } else {
+      await route.posts.likePost(Number(postId), Number(router.id));
+    }
+    window.location.reload();
+    return;
   };
 
-  const handleFavoritePost = (postId: number) => {
-    // Handle favorite post logic here
+  const handleFavoritePost = async (postId: number) => {
+    const response = await route.user.isFavoritedPost(
+      Number(router.id),
+      Number(postId)
+    );
+    if (response.status === 200) {
+      await route.posts.unFavoritePost(Number(postId), Number(router.id));
+    } else {
+      await route.posts.favoritePost(Number(postId), Number(router.id));
+    }
+    window.location.reload();
+    return;
   };
 
   if (loading) {
@@ -150,40 +167,24 @@ export default function PageCategory() {
               </div>
               <div className="flex items-center space-x-4">
                 <FavoriteIcon className="text-red-500" />
-
                 <Typography variant="body1">
                   {categoria._count.favorites} Favorites
                 </Typography>
               </div>
               <div className="flex items-center space-x-4">
                 <FollowTheSignsIcon className="text-black" />
-
                 <Typography variant="body1">
                   {categoria._count.followers} Followers
                 </Typography>
-                {following === false ? (
-                  <>
-                    {" "}
-                    <IconButton
-                      className="transition-transform transform hover:scale-105"
-                      onClick={() => handleFollowCategory(categoria.id)}
-                      color="primary"
-                    >
-                      <Typography variant="body1">Follow</Typography>
-                    </IconButton>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <IconButton
-                      className="transition-transform transform hover:scale-105"
-                      onClick={() => handleFollowCategory(categoria.id)}
-                      color="primary"
-                    >
-                      <Typography variant="body1">Unfollow</Typography>
-                    </IconButton>
-                  </>
-                )}
+                <IconButton
+                  className="transition-transform transform hover:scale-105"
+                  onClick={() => handleFollowCategory(categoria.id)}
+                  color="primary"
+                >
+                  <Typography variant="body1">
+                    {following ? "Unfollow" : "Follow"}
+                  </Typography>
+                </IconButton>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">

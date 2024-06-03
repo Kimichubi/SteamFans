@@ -83,6 +83,48 @@ const userService = {
 
     return response;
   },
+  isLiked: async (categoryId: number, postId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/user/likes/posts`,
+        { categoryId: Number(categoryId), postId: Number(postId) },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
+  isFavorited: async (categoryId: number, postId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/user/favorited/posts`,
+        { categoryId: Number(categoryId), postId: Number(postId) },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
 };
 
 export default userService;

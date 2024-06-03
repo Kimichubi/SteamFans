@@ -57,6 +57,27 @@ const categoryService = {
 
     return response;
   },
+  unFollowCategory: async (categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/user/unfollow`,
+        { categoryId },
+        {
+          // Adicione o parâmetro de página na URL
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return response;
+  },
+ 
 };
 
 export default categoryService;
