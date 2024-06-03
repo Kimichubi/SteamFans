@@ -77,7 +77,23 @@ const categoryService = {
 
     return response;
   },
- 
+  newCategory: async (name: string, imageUrl: any) => {
+    const token = sessionStorage.getItem("steam-token");
+    const body = { name, imageUrl };
+    const response = await api
+      .post("/new/category", body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        return err.response;
+      });
+    console.log(response);
+    return response;
+  },
 };
 
 export default categoryService;

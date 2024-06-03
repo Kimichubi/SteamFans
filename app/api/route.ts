@@ -72,6 +72,11 @@ const route = {
 
       return response;
     },
+    newCategory: async (name: string, imageUrl: any) => {
+      const response = await categoryService.newCategory(name, imageUrl);
+
+      return response;
+    },
   },
   //User
   user: {

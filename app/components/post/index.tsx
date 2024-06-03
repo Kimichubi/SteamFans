@@ -9,22 +9,59 @@ export default function PostForm() {
   const [categorias, setCategorias] = useState<
     { id: number; name: string; imageUrl: string }[]
   >([]);
-
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [color, setColor] = useState("");
-  const [selectedImage, setSelectedImage] = useState(""); // Estado para armazenar a imagem selecionada
+  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImageCategory, setSelectedImageCategory] = useState("");
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [newCategoryImage, setNewCategoryImage] = useState("");
+  const [showNewCategoryForm, setShowNewCategoryForm] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await route.category.getAllCategory();
+      const response = await route.category.getAllCategory(currentPage);
 
       if (response.data.status === 200) {
         setCategorias(response.data.message);
       }
     };
     fetchCategories();
-  }, []);
+  }, [currentPage]);
+
+  const handleNewCategorySubmit = async (
+    ev: React.FormEvent<HTMLFormElement>
+  ) => {
+    ev.preventDefault();
+    const formData = new FormData(ev.currentTarget);
+    const name = formData.get("newCategoryName")?.toString();
+    const imageUrl = formData.get("categoryImage");
+
+    const response = await route.category.newCategory(name!, imageUrl!);
+
+    if (response.data.sucess) {
+      const form = ev.target as HTMLFormElement;
+      form.reset();
+      setSelectedImage("");
+      setSelectedOption(null);
+
+      setOpen(true);
+      setColor("bg-green-500");
+      setMessage("Categoria criada com sucesso!");
+
+      setTimeout(() => {
+        setOpen(false);
+      }, 3000);
+    } else {
+      setOpen(true);
+      setColor("bg-red-500");
+      setMessage(response.data.message);
+      setTimeout(() => {
+        setOpen(false);
+      }, 3000);
+    }
+  };
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -36,13 +73,11 @@ export default function PostForm() {
     const response = await route.posts.newPost(name!, fanArtUrl, categoryId!);
 
     if (response.status === 200) {
-      // Reset the form
       const form = ev.target as HTMLFormElement;
       form.reset();
       setSelectedImage("");
       setSelectedOption(null);
 
-      // Display success message
       setOpen(true);
       setColor("bg-green-500");
       setMessage("Post criado com sucesso!");
@@ -51,7 +86,6 @@ export default function PostForm() {
         setOpen(false);
       }, 3000);
     } else {
-      // Display failed message
       setOpen(true);
       setColor("bg-red-500");
       setMessage(response.data.message);
@@ -77,6 +111,19 @@ export default function PostForm() {
       reader.readAsDataURL(file);
     }
   };
+  const handleFileChangeCategory = (
+    ev: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = ev.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImageCategory(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const filteredCategorias = categorias.filter((categoria) =>
     categoria.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -93,7 +140,93 @@ export default function PostForm() {
           </Alert>
         </div>
       )}
-      <div className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md flex flex-col justify-center w-96">
+      <div className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md flex flex-col justify-center w-auto h-auto">
+        <button
+          type="button"
+          onClick={() => setShowNewCategoryForm(true)}
+          className="mb-4 w-full bg-gray-100 border border-gray-300 rounded-md py-2 px-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        >
+          Criar Nova Categoria
+        </button>
+
+        {showNewCategoryForm && (
+          <form
+            name="formDataCategory"
+            id="formDataCategory"
+            method="POST"
+            encType="multipart/form-data"
+            onSubmit={handleNewCategorySubmit}
+          >
+            <div className="mb-4">
+              <label
+                htmlFor="newCategoryName"
+                className="block font-medium text-gray-700 mb-2"
+              >
+                Nome da Categoria
+              </label>
+              <input
+                type="text"
+                name="newCategoryName"
+                id="newCategoryName"
+                required
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2 transition duration-300 ease-in-out"
+                placeholder="Digite o nome da categoria"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="categoryImage"
+                className="block font-medium text-gray-700 mb-2"
+              >
+                Imagem
+              </label>
+              <div className="flex items-center">
+                <label
+                  htmlFor="categoryImage"
+                  className="flex items-center justify-center bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer py-2 px-4"
+                >
+                  <svg
+                    className="h-6 w-6 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  <span className="ml-2">Escolher arquivo</span>
+                </label>
+                <input
+                  type="file"
+                  required
+                  name="categoryImage"
+                  id="categoryImage"
+                  className="hidden"
+                  onChange={(e) => handleFileChangeCategory(e)}
+                />
+              </div>
+              {selectedImageCategory && (
+                <img
+                  src={selectedImageCategory}
+                  alt="Imagem selecionada"
+                  className="w-auto h-auto rounded-lg"
+                />
+              )}
+            </div>
+            <button
+              type="submit"
+              className="mb-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
+            >
+              Criar Categoria
+            </button>
+          </form>
+        )}
         <h2 className="text-2xl font-bold mb-4">Novo Post</h2>
         <form
           name="formData"
@@ -103,7 +236,10 @@ export default function PostForm() {
           encType="multipart/form-data"
         >
           <div className="mb-4">
-            <label htmlFor="name" className="block font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block font-medium text-gray-700 mb-2"
+            >
               Nome do Post
             </label>
             <input
@@ -111,7 +247,8 @@ export default function PostForm() {
               name="name"
               id="name"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2 transition duration-300 ease-in-out"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2
+                transition duration-300 ease-in-out"
               placeholder="Digite o nome do post"
             />
           </div>
@@ -145,7 +282,7 @@ export default function PostForm() {
                   <path
                     fillRule="evenodd"
                     d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 011.414 1.414l-3 3a1 
-                    1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                     clipRule="evenodd"
                   />
                 </svg>
@@ -193,8 +330,7 @@ export default function PostForm() {
                 className="flex items-center justify-center bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer py-2 px-4"
               >
                 <svg
-                  className="h-6 w-6 text
-                  -gray-400"
+                  className="h-6 w-6 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -221,7 +357,7 @@ export default function PostForm() {
               <img
                 src={selectedImage}
                 alt="Imagem selecionada"
-                className="mt-2 w-full max-w-sm mx-auto"
+                className="w-auto h-auto rounded-lg"
               />
             )}
           </div>
