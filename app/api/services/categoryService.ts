@@ -17,12 +17,12 @@ const categoryService = {
 
     return response;
   },
-  getOneCategory: async (categoryId: number) => {
+  getOneCategory: async (categoryId: number,page:number) => {
     const token = sessionStorage.getItem("steam-token");
 
     const response = await api
       .post(
-        `/category/getOne`,
+        `/category/getOne?page=${page}`,
         { categoryId },
         {
           // Adicione o parâmetro de página na URL

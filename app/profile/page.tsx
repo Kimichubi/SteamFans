@@ -2,6 +2,9 @@
 import { useState } from "react";
 import HeaderAuth from "../components/homeAuth/header";
 import AccountInfo from "../components/profile/accountInfo";
+import PostsLikedsByUser from "../components/profile/postsCurtidos";
+import FavoritedPosts from "../components/profile/favoritedPosts";
+import FollowingCategorys from "../components/profile/followingCategorys";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("accountInfo");
@@ -80,21 +83,21 @@ export default function ProfilePage() {
         {activeTab === "likedPosts" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Posts Curtidos</h2>
-            {/* Conteúdo dos posts curtidos */}
+            <PostsLikedsByUser />
           </div>
         )}
 
         {activeTab === "favoritePosts" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Posts Favoritados</h2>
-            {/* Conteúdo dos posts favoritados */}
+           <FavoritedPosts/>
           </div>
         )}
 
         {activeTab === "followedCategories" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Categorias Seguidas</h2>
-            {/* Conteúdo das categorias seguidas */}
+            <FollowingCategorys/>
           </div>
         )}
         {activeTab === "yourPosts" && (

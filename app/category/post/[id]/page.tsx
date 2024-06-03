@@ -17,11 +17,11 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import Link from "next/link";
 
 interface Post {
   id: number;
-  title: string;
-  content: string;
+  name: string;
   fanArtUrl: string;
   categoryId: number;
   author: {
@@ -45,9 +45,20 @@ export default function PagePost() {
       try {
         const response = await route.posts.postById(Number(router.id));
         if (response.status === 200) {
-          setPost(response.data.message);
-          setIsLiked(response.data.message._count.likes > 0);
-          setIsFavorited(response.data.message._count.favorites > 0);
+          const post = response.data.message;
+          setPost(post);
+
+          const [likeResponse, favoriteResponse] = await Promise.all([
+            route.user.isLikedPost(post.categoryId, post.id),
+            route.user.isFavoritedPost(post.categoryId, post.id),
+          ]);
+
+          if (likeResponse.status === 200) {
+            setIsLiked(true);
+          }
+          if (favoriteResponse.status === 200) {
+            setIsFavorited(true);
+          }
         }
       } catch (error) {
         console.error("Error fetching post info:", error);
@@ -59,27 +70,74 @@ export default function PagePost() {
   }, [router.id]);
 
   const handleLikePost = async () => {
-    if (isLiked) {
-      await route.posts.unLikePost(Number(router.id), Number(post?.categoryId));
-    } else {
-      await route.posts.likePost(Number(router.id), Number(post?.categoryId));
+    try {
+      if (isLiked) {
+        await route.posts.unLikePost(
+          Number(router.id),
+          Number(post?.categoryId)
+        );
+        setIsLiked(false);
+        setPost(
+          (prevPost) =>
+            prevPost && {
+              ...prevPost,
+              _count: { ...prevPost._count, likes: prevPost._count.likes - 1 },
+            }
+        );
+      } else {
+        await route.posts.likePost(Number(router.id), Number(post?.categoryId));
+        setIsLiked(true);
+        setPost(
+          (prevPost) =>
+            prevPost && {
+              ...prevPost,
+              _count: { ...prevPost._count, likes: prevPost._count.likes + 1 },
+            }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking post:", error);
     }
-    window.location.reload();
   };
 
   const handleFavoritePost = async () => {
-    if (isFavorited) {
-      await route.posts.unFavoritePost(
-        Number(router.id),
-        Number(post?.categoryId)
-      );
-    } else {
-      await route.posts.favoritePost(
-        Number(router.id),
-        Number(post?.categoryId)
-      );
+    try {
+      if (isFavorited) {
+        await route.posts.unFavoritePost(
+          Number(router.id),
+          Number(post?.categoryId)
+        );
+        setIsFavorited(false);
+        setPost(
+          (prevPost) =>
+            prevPost && {
+              ...prevPost,
+              _count: {
+                ...prevPost._count,
+                favorites: prevPost._count.favorites - 1,
+              },
+            }
+        );
+      } else {
+        await route.posts.favoritePost(
+          Number(router.id),
+          Number(post?.categoryId)
+        );
+        setIsFavorited(true);
+        setPost(
+          (prevPost) =>
+            prevPost && {
+              ...prevPost,
+              _count: {
+                ...prevPost._count,
+                favorites: prevPost._count.favorites + 1,
+              },
+            }
+        );
+      }
+    } catch (error) {
+      console.error("Error favoriting post:", error);
     }
-    window.location.reload();
   };
 
   if (loading) {
@@ -103,17 +161,21 @@ export default function PagePost() {
   return (
     <>
       <HeaderAuth />
-      <Container className="my-8">
-        <Card className="shadow-lg">
+      <Container className="my-8 flex flex-col justify-center items-center p-auto max-w-screen max-h-screen ">
+        <Card className="shadow-lg flex flex-col justify-center items-center">
           <CardMedia
             component="img"
-            height="400"
+            style={{
+              maxWidth: "100%",
+              maxHeight: "600px",
+              objectFit: "contain",
+            }}
             image={`http://localhost:8080${post.fanArtUrl}`}
-            alt={post.title}
+            alt={post.name}
           />
           <CardContent>
             <Typography variant="h4" component="h1" gutterBottom>
-              {post.title}
+              {post.name}
             </Typography>
             <Typography variant="h6" color="textSecondary" gutterBottom>
               By {post.author.name}
@@ -160,9 +222,9 @@ export default function PagePost() {
             >
               Download Image
             </Button>
-            <Typography variant="body1" paragraph>
-              {post.content}
-            </Typography>
+            <Button variant="contained" color="primary">
+              <Link href={`/category/${post.categoryId}`}>Categoria</Link>
+            </Button>
           </CardContent>
         </Card>
       </Container>

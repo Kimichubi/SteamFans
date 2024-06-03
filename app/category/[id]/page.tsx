@@ -11,6 +11,7 @@ import {
   CardMedia,
   IconButton,
   Button,
+  Pagination,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -19,7 +20,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import FooterNoAuth from "@/app/components/homeNoAuth/footer";
 
-// Define the category type
 interface Category {
   id: number;
   name: string;
@@ -35,8 +35,7 @@ interface Category {
 
 interface Post {
   id: number;
-  title: string;
-  content: string;
+  name: string;
   fanArtUrl: string;
   author: {
     name: string;
@@ -53,26 +52,26 @@ export default function PageCategory() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [following, setFollowing] = useState(false);
-
-  const [posts, setPosts] = useState<null | Post>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const getCategory = async () => {
+    const getCategory = async (page: number) => {
       try {
-        const response = await route.category.getOneCategory(Number(router.id));
+        const response = await route.category.getOneCategory(
+          Number(router.id),
+          page
+        );
 
         if (response.data.status === 200) {
-          setCategoria(response.data.message);
-          setPosts(response.data.message.posts);
+          const categoryData = response.data.message;
+          setCategoria(categoryData);
+          setTotalPages(Math.ceil(response.data.message.posts)); // Assumindo 10 posts por página
 
-          const newresponse = await route.user.isFollowingCategory(
+          const followResponse = await route.user.isFollowingCategory(
             Number(router.id)
           );
-          if (newresponse.status === 200) {
-            setFollowing(true);
-          } else {
-            setFollowing(false);
-          }
+          setFollowing(followResponse.status === 200);
         }
       } catch (err) {
         setError("An error occurred");
@@ -80,48 +79,99 @@ export default function PageCategory() {
         setLoading(false);
       }
     };
-    getCategory();
-  }, []);
+    getCategory(currentPage);
+  }, [router.id, currentPage]); // Adicione currentPage como dependência
 
   const handleFollowCategory = async (categoryId: number) => {
-    if (following) {
-      const response = await route.category.unFollowCategory(categoryId);
-      if (response.status === 200) {
-        setFollowing(false);
+    try {
+      if (following) {
+        await route.category.unFollowCategory(categoryId);
+      } else {
+        await route.category.followCategory(categoryId);
       }
-    } else {
-      const response = await route.category.followCategory(categoryId);
-      if (response.data.status === 200) {
-        setFollowing(true);
-      }
+      setFollowing(!following);
+    } catch (err) {
+      console.error(err);
     }
-    window.location.reload();
   };
 
   const handleLikePost = async (postId: number) => {
-    const response = await route.user.isLikedPost(
-      Number(router.id),
-      Number(postId)
-    );
-    if (response.status === 200) {
-      await route.posts.unLikePost(Number(postId), Number(router.id));
-    } else {
-      await route.posts.likePost(Number(postId), Number(router.id));
+    try {
+      const response = await route.user.isLikedPost(
+        Number(router.id),
+        Number(postId)
+      );
+      if (response.status === 200) {
+        await route.posts.unLikePost(Number(postId), Number(router.id));
+      } else {
+        await route.posts.likePost(Number(postId), Number(router.id));
+      }
+      setCategoria((prevCategoria) => {
+        if (!prevCategoria) return prevCategoria;
+        return {
+          ...prevCategoria,
+          posts: prevCategoria.posts.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  _count: {
+                    ...post._count,
+                    likes:
+                      response.status === 200
+                        ? post._count.likes - 1
+                        : post._count.likes + 1,
+                  },
+                }
+              : post
+          ),
+        };
+      });
+    } catch (err) {
+      console.error(err);
     }
-    window.location.reload();
   };
 
   const handleFavoritePost = async (postId: number) => {
-    const response = await route.user.isFavoritedPost(
-      Number(router.id),
-      Number(postId)
-    );
-    if (response.status === 200) {
-      await route.posts.unFavoritePost(Number(postId), Number(router.id));
-    } else {
-      await route.posts.favoritePost(Number(postId), Number(router.id));
+    try {
+      const response = await route.user.isFavoritedPost(
+        Number(router.id),
+        Number(postId)
+      );
+      if (response.status === 200) {
+        await route.posts.unFavoritePost(Number(postId), Number(router.id));
+      } else {
+        await route.posts.favoritePost(Number(postId), Number(router.id));
+      }
+      setCategoria((prevCategoria) => {
+        if (!prevCategoria) return prevCategoria;
+        return {
+          ...prevCategoria,
+          posts: prevCategoria.posts.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  _count: {
+                    ...post._count,
+                    favorites:
+                      response.status === 200
+                        ? post._count.favorites - 1
+                        : post._count.favorites + 1,
+                  },
+                }
+              : post
+          ),
+        };
+      });
+    } catch (err) {
+      console.error(err);
     }
-    window.location.reload();
+  };
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
   };
 
   if (loading) {
@@ -193,17 +243,15 @@ export default function PageCategory() {
                   <Link href={`/category/post/${post.id}`}>
                     <CardMedia
                       component="img"
-                      alt={post.title}
+                      alt={post.name}
                       height="140"
                       className="transition-transform transform hover:scale-105"
                       image={`http://localhost:8080${post.fanArtUrl}`}
                     />
                   </Link>
                   <CardContent>
-                    <Typography variant="h6">{post.title}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {post.content}
-                    </Typography>
+                    <Typography variant="h6">{post.name}</Typography>
+
                     <Typography variant="body2" className="mt-2">
                       Autor: {post.author.name}
                     </Typography>
@@ -239,6 +287,16 @@ export default function PageCategory() {
             </div>
           </div>
         )}
+        <div className="flex justify-center mt-6">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+            color="primary"
+          />
+        </div>
         <FooterNoAuth />
       </Container>
     </>

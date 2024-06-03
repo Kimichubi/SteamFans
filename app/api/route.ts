@@ -52,13 +52,14 @@ const route = {
       return response;
     },
   },
+  //Category
   category: {
     getAllCategory: async (page: number) => {
       const response = await categoryService.getAllCategorys(page);
       return response;
     },
-    getOneCategory: async (categoryId: number) => {
-      const response = await categoryService.getOneCategory(categoryId);
+    getOneCategory: async (categoryId: number,page:number) => {
+      const response = await categoryService.getOneCategory(categoryId,page);
 
       return response;
     },
@@ -120,6 +121,14 @@ const route = {
         currentPassword,
         newPassword
       );
+      return response;
+    },
+    getUserLikeds: async (page: number) => {
+      const response = await userService.getUserLikeds(page);
+      return response;
+    },
+    getUserFavorited: async (page: number) => {
+      const response = await userService.getUserFavorited(page);
       return response;
     },
   },

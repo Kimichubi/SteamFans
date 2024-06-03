@@ -15,7 +15,7 @@ export default function PostForm() {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImageCategory, setSelectedImageCategory] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
-  const [newCategoryImage, setNewCategoryImage] = useState("");
+
   const [showNewCategoryForm, setShowNewCategoryForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -40,11 +40,11 @@ export default function PostForm() {
 
     const response = await route.category.newCategory(name!, imageUrl!);
 
-    if (response.data.sucess) {
+    if (response.status === 200) {
       const form = ev.target as HTMLFormElement;
       form.reset();
       setSelectedImage("");
-      setSelectedOption(null);
+      setShowNewCategoryForm(false);
 
       setOpen(true);
       setColor("bg-green-500");
@@ -52,6 +52,7 @@ export default function PostForm() {
 
       setTimeout(() => {
         setOpen(false);
+        window.location.reload();
       }, 3000);
     } else {
       setOpen(true);
