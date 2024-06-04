@@ -4,6 +4,7 @@ import HeaderAuth from "@/app/components/homeAuth/header";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import { FaWhatsapp } from "react-icons/fa";
 import {
   Container,
   Typography,
@@ -140,6 +141,13 @@ export default function PagePost() {
     }
   };
 
+  const shareOnWhatsApp = () => {
+    const url = `https://wa.me/?text=${encodeURIComponent(
+      `Confira este post: ${post?.name} - http://localhost:8080${post?.fanArtUrl}`
+    )}`;
+    window.open(url, "_blank");
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -196,40 +204,42 @@ export default function PagePost() {
               alignItems="center"
               my={2}
             >
-              <Box display="flex" alignItems="center">
-                <IconButton color="primary" onClick={handleLikePost}>
-                  <ThumbUpIcon />
-                </IconButton>
-                <Typography className="text-white" variant="body1">
-                  {post._count.likes} Likes
-                </Typography>
-                {isLiked && (
-                  <Typography
-                    className="text-white"
-                    variant="body2"
-                    color="textSecondary"
-                  >
-                    (Unlike)
+              <div className="flex flex-wrap">
+                <Box display="flex" alignItems="center">
+                  <IconButton color="primary" onClick={handleLikePost}>
+                    <ThumbUpIcon />
+                  </IconButton>
+                  <Typography className="text-white" variant="body1">
+                    {post._count.likes} Likes
                   </Typography>
-                )}
-              </Box>
-              <Box display="flex" alignItems="center">
-                <IconButton color="secondary" onClick={handleFavoritePost}>
-                  <FavoriteIcon />
-                </IconButton>
-                <Typography className="text-white" variant="body1">
-                  {post._count.favorites} Favorites
-                </Typography>
-                {isFavorited && (
-                  <Typography
-                    className="text-white"
-                    variant="body2"
-                    color="textSecondary"
-                  >
-                    (Unfavorite)
+                  {isLiked && (
+                    <Typography
+                      className="text-white"
+                      variant="body2"
+                      color="textSecondary"
+                    >
+                      (Unlike)
+                    </Typography>
+                  )}
+                </Box>
+                <Box display="flex" alignItems="center">
+                  <IconButton color="secondary" onClick={handleFavoritePost}>
+                    <FavoriteIcon />
+                  </IconButton>
+                  <Typography className="text-white" variant="body1">
+                    {post._count.favorites} Favorites
                   </Typography>
-                )}
-              </Box>
+                  {isFavorited && (
+                    <Typography
+                      className="text-white"
+                      variant="body2"
+                      color="textSecondary"
+                    >
+                      (Unfavorite)
+                    </Typography>
+                  )}
+                </Box>
+              </div>
             </Box>
             <div className="flex flex-wrap gap-4">
               {" "}
@@ -244,6 +254,14 @@ export default function PagePost() {
               </Button>
               <Button variant="contained" color="primary">
                 <Link href={`/category/${post.categoryId}`}>Categoria</Link>
+              </Button>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={shareOnWhatsApp}
+                startIcon={<FaWhatsapp />}
+              >
+                Compartilhar no WhatsApp
               </Button>
             </div>
           </CardContent>

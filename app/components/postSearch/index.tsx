@@ -13,13 +13,12 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import Link from "next/link";
 
 const PostsToSearch = ({ postsToPut }: any) => {
   const [page, setPage] = useState(1);
   const [totalCategories, setTotalCategories] = useState(postsToPut.length);
-
+  console.log(postsToPut)
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -29,7 +28,7 @@ const PostsToSearch = ({ postsToPut }: any) => {
 
   return (
     <>
-      {postsToPut.length < 1 ? (
+      {postsToPut.length < 2 || postsToPut.length == undefined ? (
         <></>
       ) : (
         <>

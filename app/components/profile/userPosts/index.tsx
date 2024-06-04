@@ -65,7 +65,7 @@ export default function UserPosts() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-md shadow-md">
+    <div className="max-w-4xl mx-auto p-6 bg-transparent rounded-md shadow-md border-white border">
       <h2 className="text-2xl font-bold mb-4">Seus Posts!</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {posts.map((posts) => (
@@ -89,6 +89,7 @@ export default function UserPosts() {
           showFirstButton
           showLastButton
           color="primary"
+          className="bg-white rounded-lg"
         />
       </div>
     </div>

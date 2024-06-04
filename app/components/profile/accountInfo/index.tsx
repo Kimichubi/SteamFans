@@ -1,4 +1,6 @@
 import route from "@/app/api/route";
+import { Container } from "@mui/material";
+
 import { useEffect, useState } from "react";
 
 interface User {
@@ -116,106 +118,104 @@ export default function AccountInfo() {
   return (
     <>
       {user && (
-        <div className="max-w-md mx-auto">
-          <form>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
-                Nome:
-              </label>
-              {editing ? (
-                <input
-                  type="text"
-                  name="name"
-                  value={editedUser.name}
-                  onChange={handleInputChange}
-                  className="border rounded-md px-3 py-2 w-full"
-                />
-              ) : (
-                <p>{user.name}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
-                Email:
-              </label>
-              {editing ? (
-                <input
-                  type="email"
-                  name="email"
-                  value={editedUser.email}
-                  onChange={handleInputChange}
-                  className="border rounded-md px-3 py-2 w-full"
-                />
-              ) : (
-                <p>{user.email}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
-                Senha:
-              </label>
-              {editing ? (
-                <>
+        <Container className="max-w-md mx-auto bg-white rounded-lg p-6 m-auto flex flex-wrap justify-center items-center min-w-max text-black">
+          <div className="flex flex-wrap justify-center">
+            <form>
+              <div className="mb-4">
+                <label className="block  font-bold mb-2">Nome:</label>
+                {editing ? (
                   <input
-                    type="password"
-                    name="password"
-                    value={oldPassword}
-                    onChange={handleOldPasswordChange}
-                    placeholder="Senha antiga"
-                    className="border rounded-md px-3 py-2 w-full mb-2"
+                    type="text"
+                    name="name"
+                    value={editedUser.name}
+                    onChange={handleInputChange}
+                    className="border rounded-md px-3 py-2 w-full "
                   />
+                ) : (
+                  <p>{user.name}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block  font-bold mb-2">Email:</label>
+                {editing ? (
                   <input
-                    type="password"
-                    name="newPassword"
-                    value={newPassword}
-                    onChange={handleNewPasswordChange}
-                    placeholder="Nova senha"
-                    className="border rounded-md px-3 py-2 w-full mb-2"
-                  />
-                  <input
-                    type="password"
-                    name="confirmNewPassword"
-                    value={confirmNewPassword}
-                    onChange={handleConfirmNewPasswordChange}
-                    placeholder="Confirmar nova senha"
+                    type="email"
+                    name="email"
+                    value={editedUser.email}
+                    onChange={handleInputChange}
                     className="border rounded-md px-3 py-2 w-full"
                   />
+                ) : (
+                  <p>{user.email}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  Senha:
+                </label>
+                {editing ? (
+                  <>
+                    <input
+                      type="password"
+                      name="password"
+                      value={oldPassword}
+                      onChange={handleOldPasswordChange}
+                      placeholder="Senha antiga"
+                      className="border rounded-md px-3 py-2 w-full mb-2"
+                    />
+                    <input
+                      type="password"
+                      name="newPassword"
+                      value={newPassword}
+                      onChange={handleNewPasswordChange}
+                      placeholder="Nova senha"
+                      className="border rounded-md px-3 py-2 w-full mb-2"
+                    />
+                    <input
+                      type="password"
+                      name="confirmNewPassword"
+                      value={confirmNewPassword}
+                      onChange={handleConfirmNewPasswordChange}
+                      placeholder="Confirmar nova senha"
+                      className="border rounded-md px-3 py-2 w-full"
+                    />
+                  </>
+                ) : (
+                  <p>********</p>
+                )}
+              </div>
+              {editing ? (
+                <>
+                  <div className="flex justify-between">
+                    <button
+                      type="button"
+                      onClick={handleUpdateUserInfo}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      Salvar Informações
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleUpdatePassword}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      Atualizar Senha
+                    </button>
+                  </div>
+                  {error && <p className="text-red-500 mt-2">{error}</p>}
                 </>
               ) : (
-                <p>********</p>
+                <button
+                  type="button"
+                  onClick={() => setEditing(true)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Editar
+                </button>
               )}
-            </div>
-            {editing ? (
-              <>
-                <div className="flex justify-between">
-                  <button
-                    type="button"
-                    onClick={handleUpdateUserInfo}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Salvar Informações
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleUpdatePassword}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Atualizar Senha
-                  </button>
-                </div>
-                {error && <p className="text-red-500 mt-2">{error}</p>}
-              </>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setEditing(true)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Editar
-              </button>
-            )}
-          </form>
-        </div>
+            </form>
+          </div>
+        </Container>
       )}
     </>
   );

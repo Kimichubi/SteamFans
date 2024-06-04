@@ -150,12 +150,15 @@ export default function HeaderAuth() {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem>
-                <Link href="/posts">Posts</Link>
-              </MenuItem>
-              <MenuItem>
-                <Link href="/profile">Profile</Link>
-              </MenuItem>
+              {" "}
+              <Link href="/posts">
+                {" "}
+                <MenuItem>Posts</MenuItem>
+              </Link>
+              <Link href="/profile">
+                {" "}
+                <MenuItem>Profile</MenuItem>
+              </Link>
               <MenuItem>
                 <Input
                   type="text"

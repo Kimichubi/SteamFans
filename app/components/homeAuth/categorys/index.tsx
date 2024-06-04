@@ -31,31 +31,36 @@ const Categorys = ({ categoriasToPut }: any) => {
       };
     }[]
   >([]);
-  const [page, setPage] = useState(1);
-  const [totalCategories, setTotalCategories] = useState(0);
-  const itemsPerPage = 10;
 
+  const [totalCategories, setTotalCategories] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await route.category.getAllCategory(page);
+    const fetchCategories = async (currentPage: number) => {
+      const response = await route.category.getAllCategory(currentPage);
 
       if (response.data.status === 200) {
         setCategorias(response.data.message);
-        setTotalCategories(response.data.message.categories);
+        setTotalCategories(Math.ceil(response.data.message.categories / 10));
       }
     };
     if (categoriasToPut) {
       setCategorias(categoriasToPut);
     } else {
-      fetchCategories();
+      fetchCategories(currentPage);
     }
-  }, [page]);
+  }, [currentPage]);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setPage(value);
+    setCurrentPage(value);
   };
 
   return (
@@ -153,13 +158,16 @@ const Categorys = ({ categoriasToPut }: any) => {
             </div>
           )}
           <Typography className="text-center mt-2 text-white border-b border-b-white">
-            Page: {page}
+            Page: {currentPage}
           </Typography>
           <Pagination
-            count={Math.ceil(totalCategories / itemsPerPage)}
-            page={page}
+            count={totalCategories}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+            color="primary"
             className="bg-white rounded-md w-1/3 m-auto max-sm:w-auto flex justify-center text-white"
-            size="large"
           />
         </Container>
       </div>

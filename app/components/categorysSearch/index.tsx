@@ -22,6 +22,8 @@ const CategorysToSearch = ({ categoriasToPut, searchValue }: any) => {
     categoriasToPut.length
   );
 
+  
+
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
