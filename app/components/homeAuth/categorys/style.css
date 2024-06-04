@@ -1,0 +1,10 @@
+@media (max-width: 430px) {
+  .contentMediaCategorys {
+
+    flex-direction: column;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+}

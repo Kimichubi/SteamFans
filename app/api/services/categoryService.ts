@@ -107,7 +107,6 @@ const categoryService = {
         console.log(err.response.data);
         return err.response;
       });
-    console.log(response);
     return response;
   },
 };

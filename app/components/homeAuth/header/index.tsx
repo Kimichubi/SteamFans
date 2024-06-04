@@ -164,7 +164,11 @@ export default function HeaderAuth() {
                     setSearchParams(ev.currentTarget.value);
                   }}
                 />
-                <Button onClick={(ev) => {}}>
+                <Button
+                  onClick={(ev) => {
+                    searchCategorys(ev);
+                  }}
+                >
                   <svg
                     className="w-6 h-6"
                     aria-hidden="true"
@@ -197,7 +201,10 @@ export default function HeaderAuth() {
           </div>
         </div>
       </Box>
-      <CategorysToSearch searchValue={searchParams} categoriasToPut={categorys} />
+      <CategorysToSearch
+        searchValue={searchParams}
+        categoriasToPut={categorys}
+      />
     </>
   );
 }

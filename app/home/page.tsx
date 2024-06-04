@@ -13,7 +13,6 @@ export default function HomePage() {
     <>
       <HeaderAuth />
       <Container className="containerTest min-w-full min-h-screen flex flex-wrap gap-2 justify-between">
-        <SectionContent />
         <Categorys />
         <FooterNoAuth />
       </Container>

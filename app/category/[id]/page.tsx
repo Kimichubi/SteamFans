@@ -69,7 +69,7 @@ export default function PageCategory() {
         if (response.data.status === 200) {
           const categoryData = response.data.message;
           setCategoria(categoryData);
-          setTotalPages(Math.ceil(response.data.message.posts)); // Assumindo 10 posts por página
+          setTotalPages(Math.ceil(response.data.message.posts / 10)); // Assumindo 10 posts por página
 
           const followResponse = await route.user.isFollowingCategory(
             Number(router.id)
@@ -83,13 +83,13 @@ export default function PageCategory() {
       }
     };
     getCategory(currentPage);
-  }, [router.id, currentPage]); // Adicione currentPage como dependência
+  }, [router.id, currentPage]);
 
   const searchPosts = async (ev: any) => {
     ev.preventDefault();
     const response = await route.posts.postSearch(
       searchParams,
-      totalPages,
+      currentPage,
       Number(router.id)
     );
 
@@ -190,13 +190,13 @@ export default function PageCategory() {
     setCurrentPage(page);
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <CircularProgress />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return (
@@ -211,145 +211,152 @@ export default function PageCategory() {
   return (
     <>
       <HeaderAuth />
-      <Container>
-        {categoria && (
-          <div className="text-center my-8">
-            <div className="relative w-full h-96 rounded-lg shadow-md overflow-hidden">
-              <img
-                src={`http://localhost:8080${categoria.imageUrl}`}
-                alt={categoria.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <Typography variant="h4" className="mt-4">
-              {categoria.name}
-            </Typography>
-            <div className="flex justify-around my-4">
-              <div className="flex items-center space-x-4">
-                <ThumbUpIcon className="text-blue-500" />
-                <Typography variant="body1">
-                  {categoria._count.likes} Likes
-                </Typography>
+      <Container className=" bg-neutral-900 min-w-full min-h-screen flex flex-wrap justify-center">
+        <div className="w-full h-full">
+          {categoria && (
+            <div className="text-center my-8 w-auto">
+              <div className="w-full h-96 shadow-md ">
+                <img
+                  src={`http://localhost:8080${categoria.imageUrl}`}
+                  alt={categoria.name}
+                  className="w-full h-full object-contain rounded-md"
+                />
               </div>
-              <div className="flex items-center space-x-4">
-                <FavoriteIcon className="text-red-500" />
-                <Typography variant="body1">
-                  {categoria._count.favorites} Favorites
-                </Typography>
-              </div>
-              <div className="flex items-center space-x-4">
-                <FollowTheSignsIcon className="text-black" />
-                <Typography variant="body1">
-                  {categoria._count.followers} Followers
-                </Typography>
-                <IconButton
-                  className="transition-transform transform hover:scale-105"
-                  onClick={() => handleFollowCategory(categoria.id)}
-                  color="primary"
-                >
-                  <Typography variant="body1">
-                    {following ? "Unfollow" : "Follow"}
-                  </Typography>
-                </IconButton>
-              </div>
-            </div>
-            <div>
-              <Input
-                color="secondary"
-                className="text-black"
-                type="text"
-                placeholder="Search"
-                onChange={(ev) => {
-                  setSearchParams(ev.currentTarget.value);
-                }}
-              />
-              <Button
-                onClick={(ev) => {
-                  searchPosts(ev);
-                }}
+              <Typography
+                variant="h4"
+                className="mt-4 text-white border-b border-white border-r border-l"
               >
-                <svg
-                  className="w-6 h-6 text-black"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </Button>
-            </div>
-            <div>
-              <PostsToSearch postsToPut={posts} />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-              {categoria.posts.map((post) => (
-                <Card key={post.id} className="shadow-md">
-                  <Link href={`/category/post/${post.id}`}>
-                    <CardMedia
-                      component="img"
-                      alt={post.name}
-                      height="140"
-                      className="transition-transform transform hover:scale-105"
-                      image={`http://localhost:8080${post.fanArtUrl}`}
-                    />
-                  </Link>
-                  <CardContent>
-                    <Typography variant="h6">{post.name}</Typography>
-
-                    <Typography variant="body2" className="mt-2">
-                      Autor: {post.author.name}
+                {categoria.name}
+              </Typography>
+              <div className="flex flex-wrap justify-center my-4 gap-4">
+                <div className="flex items-center space-x-4">
+                  <ThumbUpIcon className="text-blue-500" />
+                  <Typography variant="body1" className="text-white">
+                    {categoria._count.likes} Likes
+                  </Typography>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <FavoriteIcon className="text-red-500" />
+                  <Typography variant="body1" className="text-white">
+                    {categoria._count.favorites} Favorites
+                  </Typography>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <FollowTheSignsIcon className="text-black" />
+                  <Typography variant="body1" className="text-white">
+                    {categoria._count.followers} Followers
+                  </Typography>
+                  <IconButton
+                    className="transition-transform transform hover:scale-105"
+                    onClick={() => handleFollowCategory(categoria.id)}
+                    color="primary"
+                  >
+                    <Typography variant="body1">
+                      {following ? "Unfollow" : "Follow"}
                     </Typography>
-                    <div className="flex justify-between mt-2">
-                      <div className="flex items-center space-x-2">
-                        <IconButton
-                          className="transition-transform transform hover:scale-105"
-                          onClick={() => handleLikePost(post.id)}
-                          color="primary"
-                        >
-                          <ThumbUpIcon />
-                        </IconButton>
-                        <Typography variant="body2">
-                          {post._count.likes}
-                        </Typography>
+                  </IconButton>
+                </div>
+              </div>
+              <div>
+                <Input
+                  color="secondary"
+                  className="text-white"
+                  type="text"
+                  placeholder="Search"
+                  onChange={(ev) => {
+                    setSearchParams(ev.currentTarget.value);
+                  }}
+                />
+                <Button
+                  onClick={(ev) => {
+                    searchPosts(ev);
+                  }}
+                >
+                  <svg
+                    className="w-6 h-6 text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                </Button>
+              </div>
+              <div>
+                <PostsToSearch postsToPut={posts} />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+                {categoria.posts.map((post) => (
+                  <Card
+                    key={post.id}
+                    className="border border-white shadow-md bg-transparent text-white w-full h-auto"
+                  >
+                    <Link href={`/category/post/${post.id}`}>
+                      <CardMedia
+                        component="img"
+                        alt={post.name}
+                        className="transition-transform transform hover:scale-105 max-h-64 rounded-sm"
+                        image={`http://localhost:8080${post.fanArtUrl}`}
+                      />
+                    </Link>
+                    <CardContent className="p-4">
+                      <Typography variant="h6">{post.name}</Typography>
+                      <Typography variant="body2" className="mt-2">
+                        Autor: {post.author.name}
+                      </Typography>
+                      <div className="flex justify-between mt-2">
+                        <div className="flex items-center space-x-2">
+                          <IconButton
+                            className="transition-transform transform hover:scale-105"
+                            onClick={() => handleLikePost(post.id)}
+                            color="primary"
+                          >
+                            <ThumbUpIcon />
+                          </IconButton>
+                          <Typography variant="body2">
+                            {post._count.likes}
+                          </Typography>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <IconButton
+                            className="transition-transform transform hover:scale-105"
+                            onClick={() => handleFavoritePost(post.id)}
+                            color="secondary"
+                          >
+                            <FavoriteIcon />
+                          </IconButton>
+                          <Typography variant="body2">
+                            {post._count.favorites}
+                          </Typography>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <IconButton
-                          className="transition-transform transform hover:scale-105"
-                          onClick={() => handleFavoritePost(post.id)}
-                          color="secondary"
-                        >
-                          <FavoriteIcon />
-                        </IconButton>
-                        <Typography variant="body2">
-                          {post._count.favorites}
-                        </Typography>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
+          )}
+          <div className="flex justify-center mt-6">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              showFirstButton
+              showLastButton
+              color="primary"
+              className="bg-white rounded-md w-1/3 m-auto max-sm:w-auto flex justify-center text-white"
+            />
           </div>
-        )}
-        <div className="flex justify-center mt-6">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-            showFirstButton
-            showLastButton
-            color="primary"
-          />
+          <FooterNoAuth />
         </div>
-        <FooterNoAuth />
       </Container>
     </>
   );

@@ -55,21 +55,21 @@ const CategorysToSearch = ({ categoriasToPut, searchValue }: any) => {
               <Grid container spacing={4}>
                 {categoriasToPut.map((categoria: any) => (
                   <Grid item key={categoria.id} xs={12} sm={6} md={4} lg={4}>
-                    <Card className="bg-zinc-800 text-white shadow-md hover:shadow-lg transition-shadow h-full">
+                    <Card className="bg-zinc-950 text-white shadow-md hover:shadow-lg transition-shadow w-auto h-full flex flex-col justify-between items-center">
                       <Link href={`/category/${categoria.id}`}>
                         <CardMedia
-                          className="hover:-translate-y-1 hover:scale-110  duration-300"
+                          className="hover:-translate-y-1 hover:scale-110  duration-300 w-auto h-full"
                           component="img"
                           height="140"
                           image={`http://localhost:8080${categoria.imageUrl}`}
                           alt={categoria.name}
                         />
                       </Link>
-                      <CardContent>
+                      <CardContent className="flex flex-col w-auto h-auto">
                         <Typography variant="h6" component="div">
                           {categoria.name}
                         </Typography>
-                        <div className="flex justify-around my-4">
+                        <div className="flex justify-around my-4 contentMediaCategorys w-auto h-auto">
                           <div className="flex items-center space-x-4">
                             <ThumbUpIcon className="text-blue-500" />
                             <Typography variant="body1">
