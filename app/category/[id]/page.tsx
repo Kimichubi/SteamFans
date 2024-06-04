@@ -12,6 +12,7 @@ import {
   IconButton,
   Button,
   Pagination,
+  Input,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -19,6 +20,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import FooterNoAuth from "@/app/components/homeNoAuth/footer";
+import PostsToSearch from "@/app/components/postSearch";
 
 interface Category {
   id: number;
@@ -54,7 +56,8 @@ export default function PageCategory() {
   const [following, setFollowing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
+  const [searchParams, setSearchParams] = useState("");
+  const [posts, setPosts] = useState<Post[]>([]);
   useEffect(() => {
     const getCategory = async (page: number) => {
       try {
@@ -81,6 +84,19 @@ export default function PageCategory() {
     };
     getCategory(currentPage);
   }, [router.id, currentPage]); // Adicione currentPage como dependência
+
+  const searchPosts = async (ev: any) => {
+    ev.preventDefault();
+    const response = await route.posts.postSearch(
+      searchParams,
+      totalPages,
+      Number(router.id)
+    );
+
+    if (response.status === 200) {
+      setPosts(response.data.message);
+    }
+  };
 
   const handleFollowCategory = async (categoryId: number) => {
     try {
@@ -236,6 +252,42 @@ export default function PageCategory() {
                   </Typography>
                 </IconButton>
               </div>
+            </div>
+            <div>
+              <Input
+                color="secondary"
+                className="text-black"
+                type="text"
+                placeholder="Search"
+                onChange={(ev) => {
+                  setSearchParams(ev.currentTarget.value);
+                }}
+              />
+              <Button
+                onClick={(ev) => {
+                  searchPosts(ev);
+                }}
+              >
+                <svg
+                  className="w-6 h-6 text-black"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </Button>
+            </div>
+            <div>
+              <PostsToSearch postsToPut={posts} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
               {categoria.posts.map((post) => (

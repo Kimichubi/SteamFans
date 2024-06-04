@@ -16,7 +16,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import Link from "next/link";
 
-const Categorys = () => {
+const Categorys = ({ categoriasToPut }: any) => {
   const [categorias, setCategorias] = useState<
     {
       id: number;
@@ -43,7 +43,11 @@ const Categorys = () => {
         setTotalCategories(response.data.message.categories);
       }
     };
-    fetchCategories();
+    if (categoriasToPut) {
+      setCategorias(categoriasToPut);
+    } else {
+      fetchCategories();
+    }
   }, [page]);
 
   const handleChangePage = (

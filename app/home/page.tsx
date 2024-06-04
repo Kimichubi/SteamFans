@@ -20,7 +20,7 @@ export default function HomePage() {
       <HeaderAuth />
       <Container className="containerTest min-w-full h-auto">
         <SectionContent />
-        <Categorys />
+        <Categorys  />
         {/* <YourFavoritedCategorys /> */}
         <FooterNoAuth />
       </Container>

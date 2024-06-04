@@ -51,6 +51,10 @@ const route = {
 
       return response;
     },
+    postSearch: async (query: string, page: number, categoryId: number) => {
+      const response = await postService.postSearch(query, page, categoryId);
+      return response;
+    },
   },
   //Category
   category: {
@@ -58,8 +62,8 @@ const route = {
       const response = await categoryService.getAllCategorys(page);
       return response;
     },
-    getOneCategory: async (categoryId: number,page:number) => {
-      const response = await categoryService.getOneCategory(categoryId,page);
+    getOneCategory: async (categoryId: number, page: number) => {
+      const response = await categoryService.getOneCategory(categoryId, page);
 
       return response;
     },
@@ -76,6 +80,10 @@ const route = {
     newCategory: async (name: string, imageUrl: any) => {
       const response = await categoryService.newCategory(name, imageUrl);
 
+      return response;
+    },
+    categorySearch: async (query: string, page: number) => {
+      const response = await categoryService.categorySearch(query, page);
       return response;
     },
   },

@@ -170,6 +170,26 @@ const postService = {
 
     return response;
   },
+  postSearch: async (query: string, page: number, categoryId: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .post(
+        `/post/search?query=${query}&page=${page}`,
+        { categoryId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        console.log(err.response.data);
+        return err.response;
+      });
+    console.log(response);
+    return response;
+  },
 };
 
 export default postService;

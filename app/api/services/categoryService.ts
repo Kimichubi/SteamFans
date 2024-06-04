@@ -17,7 +17,7 @@ const categoryService = {
 
     return response;
   },
-  getOneCategory: async (categoryId: number,page:number) => {
+  getOneCategory: async (categoryId: number, page: number) => {
     const token = sessionStorage.getItem("steam-token");
 
     const response = await api
@@ -85,6 +85,22 @@ const categoryService = {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        return err.response;
+      });
+    console.log(response);
+    return response;
+  },
+  categorySearch: async (query: string, page: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .get(`/category/search?query=${query}&page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       })
       .catch((err) => {
