@@ -5,6 +5,7 @@ import AccountInfo from "../components/profile/accountInfo";
 import PostsLikedsByUser from "../components/profile/postsCurtidos";
 import FavoritedPosts from "../components/profile/favoritedPosts";
 import FollowingCategorys from "../components/profile/followingCategorys";
+import UserPosts from "../components/profile/userPosts";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("accountInfo");
@@ -103,7 +104,7 @@ export default function ProfilePage() {
         {activeTab === "yourPosts" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Seus posts!</h2>
-            {/* Conteúdo das categorias seguidas */}
+           <UserPosts/>
           </div>
         )}
       </div>

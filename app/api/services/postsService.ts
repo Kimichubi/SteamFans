@@ -187,8 +187,30 @@ const postService = {
         console.log(err.response.data);
         return err.response;
       });
-    console.log(response);
+
     return response;
+  },
+  deletePost: async (postId: number, categoryId: number) => {
+    try {
+      const token = sessionStorage.getItem("steam-token");
+
+      const response = await api
+        .post(
+          "/post/delete",
+          { postId, categoryId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .catch((err) => {
+          console.log(err.response.data);
+          return err.response;
+        });
+
+      return response;
+    } catch (error) {}
   },
 };
 

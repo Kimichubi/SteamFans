@@ -201,6 +201,23 @@ const userService = {
 
     return response;
   },
+  getUserPosts: async (page: number) => {
+    const token = sessionStorage.getItem("steam-token");
+
+    const response = await api
+      .get(`/posts/getUser/posts?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
+
+    return response;
+  },
 };
 
 export default userService;

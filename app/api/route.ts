@@ -55,6 +55,10 @@ const route = {
       const response = await postService.postSearch(query, page, categoryId);
       return response;
     },
+    deletePost: async (postId: number, categoryId: number) => {
+      const response = await postService.deletePost(postId, categoryId);
+      return response;
+    },
   },
   //Category
   category: {
@@ -137,6 +141,10 @@ const route = {
     },
     getUserFavorited: async (page: number) => {
       const response = await userService.getUserFavorited(page);
+      return response;
+    },
+    getUserPosts: async (page: number) => {
+      const response = await userService.getUserPosts(page);
       return response;
     },
   },
