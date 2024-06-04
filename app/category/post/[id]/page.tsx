@@ -161,23 +161,33 @@ export default function PagePost() {
   return (
     <>
       <HeaderAuth />
-      <Container className="my-8 flex flex-col justify-center items-center p-auto max-w-screen max-h-screen ">
-        <Card className="shadow-lg flex flex-col justify-center items-center">
+      <Container className="bg-neutral-900 min-w-full min-h-screen flex flex-wrap justify-center items-center">
+        <Card className="shadow-lg flex flex-col justify-center items-center bg-neutral-700 w-auto h-fit">
           <CardMedia
             component="img"
             style={{
               maxWidth: "100%",
-              maxHeight: "600px",
               objectFit: "contain",
             }}
             image={`http://localhost:8080${post.fanArtUrl}`}
             alt={post.name}
+            className="max-h-full"
           />
           <CardContent>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography
+              variant="h4"
+              component="h1"
+              className="text-white max-sm:text-lg"
+              gutterBottom
+            >
               {post.name}
             </Typography>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
+            <Typography
+              variant="h6"
+              className="text-white"
+              color="textSecondary"
+              gutterBottom
+            >
               By {post.author.name}
             </Typography>
             <Box
@@ -190,11 +200,15 @@ export default function PagePost() {
                 <IconButton color="primary" onClick={handleLikePost}>
                   <ThumbUpIcon />
                 </IconButton>
-                <Typography variant="body1">
+                <Typography className="text-white" variant="body1">
                   {post._count.likes} Likes
                 </Typography>
                 {isLiked && (
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    className="text-white"
+                    variant="body2"
+                    color="textSecondary"
+                  >
                     (Unlike)
                   </Typography>
                 )}
@@ -203,28 +217,35 @@ export default function PagePost() {
                 <IconButton color="secondary" onClick={handleFavoritePost}>
                   <FavoriteIcon />
                 </IconButton>
-                <Typography variant="body1">
+                <Typography className="text-white" variant="body1">
                   {post._count.favorites} Favorites
                 </Typography>
                 {isFavorited && (
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    className="text-white"
+                    variant="body2"
+                    color="textSecondary"
+                  >
                     (Unfavorite)
                   </Typography>
                 )}
               </Box>
             </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              href={`http://localhost:8080${post.fanArtUrl}`}
-              download={`download-${post.id}`}
-              startIcon={<GetAppIcon />}
-            >
-              Download Image
-            </Button>
-            <Button variant="contained" color="primary">
-              <Link href={`/category/${post.categoryId}`}>Categoria</Link>
-            </Button>
+            <div className="flex flex-wrap gap-4">
+              {" "}
+              <Button
+                variant="contained"
+                color="primary"
+                href={`http://localhost:8080${post.fanArtUrl}`}
+                download={`download-${post.id}`}
+                startIcon={<GetAppIcon />}
+              >
+                Download Image
+              </Button>
+              <Button variant="contained" color="primary">
+                <Link href={`/category/${post.categoryId}`}>Categoria</Link>
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </Container>
