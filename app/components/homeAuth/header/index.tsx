@@ -73,10 +73,6 @@ export default function HeaderAuth() {
     router.push("/");
   };
 
-  const handleDarkModeChange = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <>
       <Box
@@ -93,8 +89,6 @@ export default function HeaderAuth() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <Typography className="text-white">{`Welcome, ${user.name}`}</Typography>
-
           <div className="hidden md:flex items-center gap-3">
             {" "}
             {/* Alteração de hidden para md:hidden para exibição em dispositivos menores */}
@@ -203,7 +197,7 @@ export default function HeaderAuth() {
           </div>
         </div>
       </Box>
-      <CategorysToSearch categoriasToPut={categorys} />
+      <CategorysToSearch searchValue={searchParams} categoriasToPut={categorys} />
     </>
   );
 }

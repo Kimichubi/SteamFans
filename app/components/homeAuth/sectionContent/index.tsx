@@ -21,114 +21,97 @@ export default function SectionContent() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        overflow: "hidden",
-        minHeight: "400px", // Altura mínima para garantir visibilidade do conteúdo
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "2rem",
-        animation: "fadeIn 1s ease-in-out",
-        // Animação de fade-in
-      }}
-    >
-      {/* Elemento para imagem de fundo com desfoque */}
-
-      <Container className="bg-gray-900 bg-opacity-20 rounded-lg  p-4">
+    <div className="bg-slate-800 rounded-sm p-4 flex flex-col justify-center items-start w-auto h-2/3 border-gray-600 border m-auto">
+      <Typography
+        variant="h2"
+        sx={{
+          color: "white", // Cor de texto mais escura
+          mb: 2,
+          animation: "slideInDown 1s ease-in-out",
+          fontFamily: "Roboto, sans-serif",
+          fontSize: "3rem",
+          fontWeight: 700,
+          lineHeight: 1.2,
+        }}
+      >
+        Welcome, {user.name}!
+      </Typography>
+      <Typography
+        variant="body1"
+        className=""
+        sx={{
+          color: "white", // Cor de texto mais escura
+          mb: 4,
+          animation: "slideInUp 1s ease-in-out",
+          fontFamily: "Roboto, sans-serif",
+          fontSize: "1rem",
+          lineHeight: 1.6,
+        }}
+      >
+        Explore our collection of Steam game fan arts and dive into free art
+        inspired by your favorite games.
+      </Typography>
+      <Typography
+        fontWeight={"bold"}
+        variant="body2"
+        sx={{
+          color: "white", // Cor de texto mais escura
+          animation: "pulse 1s infinite alternate",
+          fontFamily: "Roboto, sans-serif",
+          fontSize: "1rem",
+          lineHeight: 1.4,
+        }}
+      >
+        Don't forget to share your own creations with us!
+      </Typography>
+      <Box mt={4}>
         <Typography
-          variant="h2"
-          sx={{
-            color: "GrayText", // Cor de texto mais escura
-            mb: 2,
-            animation: "slideInDown 1s ease-in-out",
-            fontFamily: "Roboto, sans-serif",
-            fontSize: "3rem",
-            fontWeight: 700,
-            lineHeight: 1.2,
-          }}
-        >
-          Welcome, {user.name}!
-        </Typography>
-        <Typography
-          variant="body1"
-          className=""
-          sx={{
-            color: "GrayText", // Cor de texto mais escura
-            mb: 4,
-            animation: "slideInUp 1s ease-in-out",
-            fontFamily: "Roboto, sans-serif",
-            fontSize: "1.5rem",
-            lineHeight: 1.6,
-          }}
-        >
-          Explore our collection of Steam game fan arts and dive into free art
-          inspired by your favorite games.
-        </Typography>
-        <Typography
-          fontWeight={"bold"}
           variant="body2"
-          sx={{
-            color: "#GrayText", // Cor de texto mais escura
-            animation: "pulse 1s infinite alternate",
-            fontFamily: "Roboto, sans-serif",
-            fontSize: "1rem",
-            lineHeight: 1.4,
-          }}
+          sx={{ color: "white", mb: 2 }}
+          fontWeight={"bold"}
         >
-          Don't forget to share your own creations with us!
+          Share your creations:
         </Typography>
-        <Box mt={4}>
-          <Typography
-            variant="body2"
-            sx={{ color: "GrayText", mb: 2 }}
-            fontWeight={"bold"}
+        <Link href="/posts" passHref>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{
+              mr: 2,
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "black", // Cor de fundo no hover
+                color: "white", // Cor do texto no hover
+              },
+            }}
           >
-            Share your creations:
-          </Typography>
-          <Link href="/posts" passHref>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                mr: 2,
-                cursor: "pointer",
-                "&:hover": {
-                  backgroundColor: "black", // Cor de fundo no hover
-                  color: "GrayText", // Cor do texto no hover
-                },
-              }}
-            >
-              Post
-            </Button>
-          </Link>
-          <Typography
-            variant="body2"
-            sx={{ color: "GrayText", mb: 2 }}
-            fontWeight={"bold"}
+            Post
+          </Button>
+        </Link>
+        <Typography
+          variant="body2"
+          sx={{ color: "white", mb: 2 }}
+          fontWeight={"bold"}
+        >
+          Manage your profile:
+        </Typography>
+        <Link href="/profile" passHref>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{
+              "&:hover": {
+                backgroundColor: "black", // Cor de fundo no hover
+                color: "#FFFFFF", // Cor do texto no hover
+              },
+            }}
           >
-            Manage your profile:
-          </Typography>
-          <Link href="/profile" passHref>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "black", // Cor de fundo no hover
-                  color: "#FFFFFF", // Cor do texto no hover
-                },
-              }}
-            >
-              Go to Profile
-            </Button>
-          </Link>
-        </Box>
-      </Container>
-    </Box>
+            Go to Profile
+          </Button>
+        </Link>
+      </Box>
+    </div>
   );
 }

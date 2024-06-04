@@ -68,10 +68,10 @@ const Categorys = ({ categoriasToPut }: any) => {
     >
       <Container className="rounded-md p-5">
         <Typography
-          className="text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center"
+          className="text-3xl font-bold leading-loose  dark:text-white border-b-stone-200-900 border-b"
           gutterBottom
         >
-          Some categories!
+          Categorys
         </Typography>
         <Grid container spacing={4}>
           {categorias.map((categoria) => (
@@ -125,7 +125,9 @@ const Categorys = ({ categoriasToPut }: any) => {
             </Typography>
           </div>
         )}
-        <Typography className="text-center mt-2">Page: {page}</Typography>
+        <Typography className="text-center mt-2 text-white border-b border-b-white">
+          Page: {page}
+        </Typography>
         <Pagination
           count={Math.ceil(totalCategories / itemsPerPage)}
           page={page}
@@ -134,10 +136,12 @@ const Categorys = ({ categoriasToPut }: any) => {
             marginTop: "20px",
             display: "flex",
             justifyContent: "center",
+            color: "white",
           }}
-          color="secondary"
+          color="primary"
           showFirstButton
           showLastButton
+          className="bg-white rounded-md w-1/3 m-auto max-sm:w-auto"
           size="large"
         />
       </Container>

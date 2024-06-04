@@ -16,7 +16,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import Link from "next/link";
 
-const CategorysToSearch = ({ categoriasToPut }: any) => {
+const CategorysToSearch = ({ categoriasToPut, searchValue }: any) => {
   const [page, setPage] = useState(1);
   const [totalCategories, setTotalCategories] = useState(
     categoriasToPut.length
@@ -43,13 +43,14 @@ const CategorysToSearch = ({ categoriasToPut }: any) => {
               height: "100%",
               padding: "20px",
             }}
+            className="bg-gradient-to-b bg-slate-900 "
           >
             <Container className="rounded-md p-5">
               <Typography
-                className="text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center"
+                className="text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center justify-center flex gap-6 m-auto border-b border-b-white"
                 gutterBottom
               >
-                Some categories!
+                <p className="text-slate-300 text-center">{searchValue}</p>
               </Typography>
               <Grid container spacing={4}>
                 {categoriasToPut.map((categoria: any) => (
@@ -109,8 +110,11 @@ const CategorysToSearch = ({ categoriasToPut }: any) => {
                   </Typography>
                 </div>
               )}
-              <Typography className="text-center mt-2">Page: {page}</Typography>
+              <Typography className="text-center mt-2 text-white border-b border-b-white">
+                Page: {page}
+              </Typography>
               <Pagination
+                className="bg-white rounded-md w-1/3 m-auto max-sm:w-auto"
                 count={Math.ceil(totalCategories)}
                 page={page}
                 onChange={handleChangePage}

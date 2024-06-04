@@ -1,4 +1,4 @@
-/* .containerTest {
-  background-image: url("/counter-strike-csgo.gif");
-  background-size: contain;
-} */
+.containerTest {
+  background-image: url("/beautyGif.gif");
+  background-size: cover;
+}
