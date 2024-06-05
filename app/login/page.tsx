@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <>
       <HeaderNoAuth></HeaderNoAuth>
-      <Container className="containerImgLoginRepeat min-w-full h-full">
+      <Container className="bg-slate-800 min-w-full h-full">
         <LoginForm />
         <FooterNoAuth />
       </Container>

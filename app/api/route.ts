@@ -147,6 +147,21 @@ const route = {
       const response = await userService.getUserPosts(page);
       return response;
     },
+    userForgotPassword: async (email: string) => {
+      const response = await userService.userForgotPassowrd(email);
+      return response;
+    },
+    userConfirmation: async (email: string, code: string) => {
+      const response = await userService.userConfirmationCode(email, code);
+      return response;
+    },
+    userUpdatePassowrdByEmail: async (email: string, newPassword: string) => {
+      const response = await userService.userUpdatePassowrdByEmail(
+        email,
+        newPassword
+      );
+      return response;
+    },
   },
 };
 

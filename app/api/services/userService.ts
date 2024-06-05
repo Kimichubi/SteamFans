@@ -218,6 +218,30 @@ const userService = {
 
     return response;
   },
+  userForgotPassowrd: async (email: string) => {
+    const response = await api
+      .post("/user/forgot", { email })
+      .catch((error) => {
+        return error.response;
+      });
+    return response;
+  },
+  userConfirmationCode: async (email: string, code: string) => {
+    const response = await api
+      .post("/user/confirmation", { email, confirmationCode: code })
+      .catch((error) => {
+        return error.response;
+      });
+    return response;
+  },
+  userUpdatePassowrdByEmail: async (email: string, newPassword: string) => {
+    const response = await api
+      .post("/user/update/password/byEmail", { email, newPassword })
+      .catch((error) => {
+        return error.response;
+      });
+    return response;
+  },
 };
 
 export default userService;
