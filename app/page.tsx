@@ -1,9 +1,9 @@
 "use client";
 import { Container } from "@mui/material";
-import FirstContent from "./components/homeNoAuth/content/firstContent";
-import SectionContent from "./components/homeNoAuth/content/sectionContent";
-import FooterNoAuth from "./components/homeNoAuth/footer";
-import HeaderNoAuth from "./components/homeNoAuth/header";
+import FirstContent from "@/components/homeNoAuth/content/firstContent";
+import SectionContent from "@/components/homeNoAuth/content/sectionContent";
+import FooterNoAuth from "@/components/homeNoAuth/footer";
+import HeaderNoAuth from "@/components/homeNoAuth/header";
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 import route from "@/app/api/route";
-import HeaderAuth from "@/app/components/homeAuth/header";
+import HeaderAuth from "@/components/homeAuth/header";
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import {
   Container,
@@ -19,8 +19,9 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import FooterNoAuth from "@/app/components/homeNoAuth/footer";
-import PostsToSearch from "@/app/components/postSearch";
+import FooterNoAuth from "@/components/homeNoAuth/footer";
+import PostsToSearch from "@/components/postSearch";
+import { useRouter } from "next/navigation";
 
 interface Category {
   id: number;
@@ -57,7 +58,17 @@ export default function PageCategory() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useState("");
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [postsToSearch, setPostsToSearch] = useState<Post[]>([]);
+  const routerToPush = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("steam-token");
+    if (!token) {
+      routerToPush.push("/register");
+      return;
+    }
+  }, []);
+
   useEffect(() => {
     const getCategory = async (page: number) => {
       try {
@@ -94,7 +105,7 @@ export default function PageCategory() {
     );
 
     if (response.status === 200) {
-      setPosts(response.data.message);
+      setPostsToSearch(response.data.message);
     }
   };
 
@@ -291,7 +302,7 @@ export default function PageCategory() {
                 </Button>
               </div>
               <div>
-                <PostsToSearch postsToPut={posts} />
+                <PostsToSearch postsToPut={postsToSearch} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
                 {categoria.posts.map((post) => (

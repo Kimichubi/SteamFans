@@ -1,15 +1,25 @@
 "use client";
-import { useState } from "react";
-import HeaderAuth from "../components/homeAuth/header";
-import AccountInfo from "../components/profile/accountInfo";
-import PostsLikedsByUser from "../components/profile/postsCurtidos";
-import FavoritedPosts from "../components/profile/favoritedPosts";
-import FollowingCategorys from "../components/profile/followingCategorys";
-import UserPosts from "../components/profile/userPosts";
+import { useEffect, useState } from "react";
+import HeaderAuth from "@/components/homeAuth/header";
+import AccountInfo from "@/components/profile/accountInfo";
+import PostsLikedsByUser from "@/components/profile/postsCurtidos";
+import FavoritedPosts from "@/components/profile/favoritedPosts";
+import FollowingCategorys from "@/components/profile/followingCategorys";
+import UserPosts from "@/components/profile/userPosts";
 import { FaBars } from "react-icons/fa";
 import { Container } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
+  const router = useRouter();
+  useEffect(() => {
+    const token = sessionStorage.getItem("steam-token");
+    if (!token) {
+      router.push("/register");
+      return;
+    }
+  }, []);
+
   const [activeTab, setActiveTab] = useState("accountInfo");
   const [menuOpen, setMenuOpen] = useState(false);
 

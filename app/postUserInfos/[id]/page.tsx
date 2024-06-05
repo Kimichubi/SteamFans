@@ -1,6 +1,6 @@
 "use client";
 import route from "@/app/api/route";
-import HeaderAuth from "@/app/components/homeAuth/header";
+import HeaderAuth from "@/components/homeAuth/header";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -35,6 +35,16 @@ interface Post {
 }
 
 export default function PostToDelete() {
+  const routerToPush = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("steam-token");
+    if (!token) {
+      routerToPush.push("/register");
+      return;
+    }
+  }, []);
+
   const router = useParams();
   const routerToPost = useRouter();
   const [post, setPost] = useState<Post | null>(null);

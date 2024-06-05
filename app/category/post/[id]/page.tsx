@@ -1,6 +1,6 @@
 "use client";
 import route from "@/app/api/route";
-import HeaderAuth from "@/app/components/homeAuth/header";
+import HeaderAuth from "@/components/homeAuth/header";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -19,6 +19,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Post {
   id: number;
@@ -40,6 +41,15 @@ export default function PagePost() {
   const [loading, setLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  const routerToPush = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("steam-token");
+    if (!token) {
+      routerToPush.push("/register");
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchPostInfos() {

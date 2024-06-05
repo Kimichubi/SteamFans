@@ -1,4 +1,3 @@
-// components/SendCodeForm.tsx
 import route from "@/app/api/route";
 import { Alert } from "@mui/material";
 import { useRouter } from "next/navigation";

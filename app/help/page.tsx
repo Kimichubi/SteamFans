@@ -1,7 +1,7 @@
 "use client";
 import { Container } from "@mui/material";
-import HeaderNoAuth from "../components/homeNoAuth/header";
-import SendCodeForm from "../components/forgotPassword";
+import HeaderNoAuth from "@/components/homeNoAuth/header";
+import SendCodeForm from "@/components/forgotPassword";
 
 export default function HelpPage() {
   return (

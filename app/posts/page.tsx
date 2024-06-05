@@ -1,11 +1,23 @@
 "use client";
 
 import { Container } from "@mui/material";
-import HeaderAuth from "../components/homeAuth/header";
-import PostForm from "../components/post";
+import HeaderAuth from "../../components/homeAuth/header";
+import PostForm from "../../components/post";
 import "../styles/post.css";
-import FooterNoAuth from "../components/homeNoAuth/footer";
+import FooterNoAuth from "../../components/homeNoAuth/footer";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function Page() {
+  const routerToPush = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("steam-token");
+    if (!token) {
+      routerToPush.push("/register");
+      return;
+    }
+  }, []);
+
   return (
     <>
       <HeaderAuth />

@@ -3,7 +3,7 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./style.css";
-import SlideShow from "@/app/components/commons/carousel";
+import SlideShow from "@/components/commons/carousel";
 import route from "@/app/api/route";
 
 export default function SectionContent({ text }: any) {

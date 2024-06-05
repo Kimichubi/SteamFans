@@ -18,7 +18,7 @@ import Link from "next/link";
 const PostsToSearch = ({ postsToPut }: any) => {
   const [page, setPage] = useState(1);
   const [totalCategories, setTotalCategories] = useState(postsToPut.length);
-  console.log(postsToPut)
+  console.log(postsToPut);
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -28,7 +28,7 @@ const PostsToSearch = ({ postsToPut }: any) => {
 
   return (
     <>
-      {postsToPut.length < 2 || postsToPut.length == undefined ? (
+      {postsToPut.length < 1 || postsToPut.length == undefined ? (
         <></>
       ) : (
         <>
@@ -41,9 +41,9 @@ const PostsToSearch = ({ postsToPut }: any) => {
               padding: "20px",
             }}
           >
-            <Container className="rounded-md p-5">
+            <Container className="rounded-md p-5 text-white">
               <Typography
-                className="text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center"
+                className="text-3xl font-semibold leading-loose dark:text-white text-center"
                 gutterBottom
               ></Typography>
               <Grid container spacing={4}>
@@ -105,6 +105,7 @@ const PostsToSearch = ({ postsToPut }: any) => {
                   display: "flex",
                   justifyContent: "center",
                 }}
+                className="bg-white rounded-md w-1/3 m-auto max-sm:w-auto flex justify-center text-white"
                 color="secondary"
                 showFirstButton
                 showLastButton
