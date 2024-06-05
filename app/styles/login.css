@@ -6,6 +6,6 @@
       rgba(21, 21, 21, 0.5) 80%,
       rgb(30 41 59)
     ),
-    /* Gradiente linear */ url("/loginPage/backgroundimagelogin.png"); /* Imagem de fundo */
+    /* Gradiente linear */ url("/backgroundLogin.gif"); /* Imagem de fundo */
   background-size: cover;
 }

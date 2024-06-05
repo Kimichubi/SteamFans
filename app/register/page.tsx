@@ -9,7 +9,7 @@ export default function RegisterPage() {
   return (
     <>
       <HeaderNoAuth />
-      <Container className="bg-slate-800 min-w-full h-auto">
+      <Container className=" min-w-full h-auto containerRegisterImgRepeat">
         <RegisterForm></RegisterForm>
         <FooterNoAuth />
       </Container>

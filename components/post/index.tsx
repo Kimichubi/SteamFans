@@ -292,6 +292,7 @@ export default function PostForm() {
                 <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto">
                   <input
                     type="text"
+                    required
                     placeholder="Pesquisar categoria"
                     className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                     value={searchTerm}
