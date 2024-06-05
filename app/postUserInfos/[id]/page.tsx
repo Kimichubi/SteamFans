@@ -214,7 +214,7 @@ export default function PostToDelete() {
               alignItems="center"
               my={2}
             >
-              <Box display="flex" alignItems="center">
+              <Box display="" alignItems="center">
                 <IconButton color="primary" onClick={handleLikePost}>
                   <ThumbUpIcon />
                 </IconButton>
@@ -231,7 +231,7 @@ export default function PostToDelete() {
                   </Typography>
                 )}
               </Box>
-              <Box>
+              <Box className="">
                 <IconButton color="secondary" onClick={handleFavoritePost}>
                   <FavoriteIcon />
                 </IconButton>

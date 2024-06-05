@@ -107,7 +107,7 @@ const Categorys = ({ categoriasToPut }: any) => {
                     <Typography variant="h6" component="div">
                       {categoria.name}
                     </Typography>
-                    <div className="flex justify-around my-4 contentMediaCategorys w-auto h-auto">
+                    <div className="flex justify-center my-auto contentMediaCategorys w-auto h-auto">
                       <div className="flex items-center space-x-4">
                         <ThumbUpIcon className="text-blue-500" />
                         <Typography variant="body1">
@@ -127,20 +127,12 @@ const Categorys = ({ categoriasToPut }: any) => {
                         </Typography>
                       </div>
                     </div>
-                    <div className="flex justify-center items-center space-x-4">
-                      {" "}
+                    <div className="flex  justify-start items-center space-x-4">
                       <Typography
                         variant="body2"
                         className="text-white text-lg"
                       >
-                        {" "}
-                        Posts
-                        <Typography
-                          variant="body2"
-                          className="text-white text-lg"
-                        >
-                          {categoria._count.posts}{" "}
-                        </Typography>
+                        {categoria._count.posts} Posts
                       </Typography>
                     </div>
                   </CardContent>
