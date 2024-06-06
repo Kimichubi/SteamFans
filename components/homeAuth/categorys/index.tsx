@@ -54,7 +54,7 @@ const Categorys = ({ categoriasToPut }: any) => {
     } else {
       fetchCategories(currentPage);
     }
-  }, [currentPage]);
+  }, [categoriasToPut, currentPage]);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
