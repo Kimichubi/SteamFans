@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -55,7 +54,7 @@ const PostsToSearch = ({ postsToPut }: any) => {
                           className="hover:-translate-y-1 hover:scale-110  duration-300"
                           component="img"
                           height="140"
-                          image={`http://localhost:8080${post.fanArtUrl}`}
+                          image={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
                           alt={post.name}
                         />
                       </Link>
