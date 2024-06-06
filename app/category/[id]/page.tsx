@@ -67,7 +67,7 @@ export default function PageCategory() {
       routerToPush.push("/register");
       return;
     }
-  }, []);
+  });
 
   useEffect(() => {
     const getCategory = async (page: number) => {

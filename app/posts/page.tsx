@@ -16,7 +16,7 @@ export default function Page() {
       routerToPush.push("/register");
       return;
     }
-  }, []);
+  });
 
   return (
     <>

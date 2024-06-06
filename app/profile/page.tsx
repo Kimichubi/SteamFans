@@ -18,7 +18,7 @@ export default function ProfilePage() {
       router.push("/register");
       return;
     }
-  }, []);
+  });
 
   const [activeTab, setActiveTab] = useState("accountInfo");
   const [menuOpen, setMenuOpen] = useState(false);

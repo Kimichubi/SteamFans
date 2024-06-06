@@ -49,7 +49,7 @@ export default function PagePost() {
       routerToPush.push("/register");
       return;
     }
-  }, []);
+  });
 
   useEffect(() => {
     async function fetchPostInfos() {

@@ -17,7 +17,7 @@ export default function HomePage() {
       router.push("/register");
       return;
     }
-  }, []);
+  });
 
   return (
     <>

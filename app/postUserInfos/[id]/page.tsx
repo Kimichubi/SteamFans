@@ -43,7 +43,7 @@ export default function PostToDelete() {
       routerToPush.push("/register");
       return;
     }
-  }, []);
+  });
 
   const router = useParams();
   const routerToPost = useRouter();
