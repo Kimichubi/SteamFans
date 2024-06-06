@@ -83,7 +83,7 @@ export default function PostToDelete() {
       }
     }
     fetchPostInfos();
-  }, [router.id]);
+  }, [router.id, routerToPost]);
 
   const handleLikePost = async () => {
     try {
