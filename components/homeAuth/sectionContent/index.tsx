@@ -71,7 +71,7 @@ export default function SectionContent() {
                 lineHeight: 1.4,
               }}
             >
-              Don't forget to share your own creations with us!
+              Don &apos; t forget to share your own creations with us!
             </Typography>
             <Box mt={4}>
               <Typography
