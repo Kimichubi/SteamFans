@@ -52,7 +52,8 @@ export default function SendCodeForm() {
   const handleSubmitCode = async (e: FormEvent) => {
     e.preventDefault();
     const response = await route.user.userConfirmation(email, code);
-    if (response.status === 200) {
+
+    if (response.data.status === 200) {
       setCodeIsRight(true);
       setCodeAlert(true);
       setCodeMessage("Código correto!");
