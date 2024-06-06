@@ -4,6 +4,9 @@ import "@splidejs/react-splide/css";
 import SlideCard from "../slideCard/index";
 
 export default function SlideShow({ posts }: any) {
+  if (posts === undefined) {
+    return;
+  }
   let slideCount = posts.length >= 5 ? 5 : posts.length;
 
   return (

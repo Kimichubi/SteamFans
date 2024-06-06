@@ -153,7 +153,7 @@ export default function PagePost() {
 
   const shareOnWhatsApp = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(
-      `Confira este post: ${post?.name} - http://localhost:8080${post?.fanArtUrl}`
+      `Confira este post: ${post?.name} - https://database-steam-fans.onrender.com${post?.fanArtUrl}`
     )}`;
     window.open(url, "_blank");
   };
@@ -187,7 +187,7 @@ export default function PagePost() {
               maxWidth: "100%",
               objectFit: "contain",
             }}
-            image={`http://localhost:8080${post.fanArtUrl}`}
+            image={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
             alt={post.name}
             className="max-h-full"
           />
@@ -256,7 +256,7 @@ export default function PagePost() {
               <Button
                 variant="contained"
                 color="primary"
-                href={`http://localhost:8080${post.fanArtUrl}`}
+                href={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
                 download={`download-${post.id}`}
                 startIcon={<GetAppIcon />}
               >

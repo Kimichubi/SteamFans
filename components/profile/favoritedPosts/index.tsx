@@ -72,7 +72,7 @@ export default function FavoritedPosts() {
           <div key={post.id} className="border border-gray-300 rounded-md p-4">
             <Link href={`/category/post/${post.id}`}>
               <img
-                src={`http://localhost:8080${post.fanArtUrl}`}
+                src={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
                 alt={post.name}
                 className="rounded-md w-full h-40 object-cover mb-4 transition-transform transform hover:scale-105"
               />

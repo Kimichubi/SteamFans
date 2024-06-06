@@ -72,7 +72,7 @@ export default function UserPosts() {
           <div key={posts.id} className="border border-gray-300 rounded-md p-4">
             <Link href={`/postUserInfos/${posts.id}`}>
               <img
-                src={`http://localhost:8080${posts.fanArtUrl}`}
+                src={`https://database-steam-fans.onrender.com${posts.fanArtUrl}`}
                 alt={posts.name}
                 className="rounded-md w-full h-40 object-cover mb-4 transition-transform transform hover:scale-105"
               />

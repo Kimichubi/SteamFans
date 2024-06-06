@@ -75,7 +75,7 @@ export default function FollowingCategorys() {
           >
             <Link href={`/category/${categoria.id}`}>
               <img
-                src={`http://localhost:8080${categoria.imageUrl}`}
+                src={`https://database-steam-fans.onrender.com${categoria.imageUrl}`}
                 alt={categoria.name}
                 className="rounded-md w-full h-40 object-cover mb-4 transition-transform transform hover:scale-105"
               />

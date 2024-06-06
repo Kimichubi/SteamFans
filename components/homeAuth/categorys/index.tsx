@@ -99,7 +99,7 @@ const Categorys = ({ categoriasToPut }: any) => {
                     <CardMedia
                       className="hover:-translate-y-1 hover:scale-110  duration-300 w-auto h-full"
                       component="img"
-                      image={`http://localhost:8080${categoria.imageUrl}`}
+                      image={`https://database-steam-fans.onrender.com${categoria.imageUrl}`}
                       alt={categoria.name}
                     />
                   </Link>

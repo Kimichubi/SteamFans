@@ -34,7 +34,6 @@ export default function RegisterForm() {
     }
 
     const response = await route.user.register(email, password, name);
-
     if (response.data.status === 200) {
       router.push("/login?registered=true");
       return;

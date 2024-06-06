@@ -228,7 +228,7 @@ export default function PageCategory() {
             <div className="text-center my-8 w-auto">
               <div className="w-full h-96 shadow-md ">
                 <img
-                  src={`http://localhost:8080${categoria.imageUrl}`}
+                  src={`https://database-steam-fans.onrender.com${categoria.imageUrl}`}
                   alt={categoria.name}
                   className="w-full h-full object-contain rounded-md"
                 />
@@ -315,7 +315,7 @@ export default function PageCategory() {
                         component="img"
                         alt={post.name}
                         className="transition-transform transform hover:scale-105 max-h-64 rounded-sm"
-                        image={`http://localhost:8080${post.fanArtUrl}`}
+                        image={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
                       />
                     </Link>
                     <CardContent className="p-4">

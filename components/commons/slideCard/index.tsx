@@ -16,7 +16,7 @@ export default function SlideCard({ post }: any) {
           </p>
           <div className="relative h-64">
             <img
-              src={`http://localhost:8080${post.fanArtUrl}`}
+              src={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
               className="absolute top-0 left-0 w-full h-full rounded-t-lg object-cover transition-transform duration-300 hover:scale-105"
               alt={`${post.name} image`}
             />

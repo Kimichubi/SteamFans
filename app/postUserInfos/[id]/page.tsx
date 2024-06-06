@@ -196,7 +196,7 @@ export default function PostToDelete() {
               maxWidth: "100%",
               objectFit: "contain",
             }}
-            image={`http://localhost:8080${post.fanArtUrl}`}
+            image={`https://database-steam-fans.onrender.com${post.fanArtUrl}`}
             alt={post.name}
           />
           <CardContent>

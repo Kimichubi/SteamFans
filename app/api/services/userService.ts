@@ -21,11 +21,17 @@ const userService = {
   register: async (email: string, password: string, name: string) => {
     const user = { email, password, name };
 
-    const response = await api.post("/register", user).catch((err) => {
-      if (err) {
-        return err.response;
-      }
-    });
+    const response = await api
+      .post("/register", user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .catch((err) => {
+        if (err) {
+          return err.response;
+        }
+      });
     return response;
   },
   getUserInfos: async () => {
