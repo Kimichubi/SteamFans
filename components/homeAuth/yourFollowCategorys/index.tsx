@@ -1,7 +1,7 @@
 import { Button, Container, Pagination, Typography } from "@mui/material";
 import SlideShowCategorys from "../../commons/carouselCategorys";
 import { useEffect, useState } from "react";
-import route from "@/app/api/route";
+import userService from "@/app/api/services/userService";
 
 export default function YourFavoritedCategorys() {
   const [categorias, setCategorias] = useState([]);
@@ -10,7 +10,7 @@ export default function YourFavoritedCategorys() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await route.user.getUserFollowingCategorys(page);
+      const response = await userService.getFollowingCategorys(page);
       if (response.data.status === 200) {
         setCategorias(response.data.message.followingCategories);
       }

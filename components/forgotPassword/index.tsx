@@ -1,4 +1,5 @@
-import route from "@/app/api/route";
+
+import userService from "@/app/api/services/userService";
 import { Alert } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState, FormEvent } from "react";
@@ -26,7 +27,7 @@ export default function SendCodeForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await route.user.userForgotPassword(email);
+    const response = await userService.userForgotPassowrd(email);
 
     if (response.status === 200) {
       setConfirmationChange(true);
@@ -51,7 +52,7 @@ export default function SendCodeForm() {
 
   const handleSubmitCode = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await route.user.userConfirmation(email, code);
+    const response = await userService.userConfirmationCode(email, code);
 
     if (response.data.status === 200) {
       setCodeIsRight(true);
@@ -76,7 +77,7 @@ export default function SendCodeForm() {
       }, 1000 * 3);
       return;
     } else {
-      const response = await route.user.userUpdatePassowrdByEmail(
+      const response = await userService.userUpdatePassowrdByEmail(
         email,
         newPassword
       );

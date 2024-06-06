@@ -1,7 +1,7 @@
-import route from "@/app/api/route";
 import { useEffect, useState } from "react";
 import { Alert, CircularProgress, Pagination } from "@mui/material";
 import Link from "next/link";
+import userService from "@/app/api/services/userService";
 
 interface Categorias {
   id: number;
@@ -23,7 +23,7 @@ export default function FollowingCategorys() {
   useEffect(() => {
     const fetchUserFollowingCategorys = async (page: number) => {
       try {
-        const response = await route.user.getUserFollowingCategorys(page);
+        const response = await userService.getFollowingCategorys(page);
         if (response.status === 200) {
           setCategorias(response.data.message.followingCategories);
           setTotalPages(response.data.message);

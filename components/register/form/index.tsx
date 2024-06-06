@@ -1,11 +1,10 @@
-import route from "@/app/api/route";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import "./styles.css";
 import { Alert, Input, Typography } from "@mui/material";
+import userService from "@/app/api/services/userService";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -33,7 +32,7 @@ export default function RegisterForm() {
       return;
     }
 
-    const response = await route.user.register(email, password, name);
+    const response = await userService.register(email, password, name);
     if (response.data.status === 200) {
       router.push("/login?registered=true");
       return;

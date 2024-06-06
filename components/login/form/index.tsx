@@ -1,11 +1,10 @@
-import route from "@/app/api/route";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { Alert, Input, Typography } from "@mui/material";
+import userService from "@/app/api/services/userService";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -38,7 +37,7 @@ export default function LoginForm() {
     formData.append("email", email);
     formData.append("password", password);
     //@ts-ignore
-    const response = await route.user.login(email, password);
+    const response = await userService.login(email, password);
     console.log(response);
     if (response.data.status === 200) {
       router.push("/home");

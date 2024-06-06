@@ -1,7 +1,8 @@
-import route from "@/app/api/route";
+
 import { useEffect, useState } from "react";
 import { Alert, CircularProgress, Pagination } from "@mui/material";
 import Link from "next/link";
+import userService from "@/app/api/services/userService";
 
 interface Post {
   id: number;
@@ -23,7 +24,7 @@ export default function PostsLikedsByUser() {
   useEffect(() => {
     const fetchUserLikedsPosts = async (page: number) => {
       try {
-        const response = await route.user.getUserLikeds(page);
+        const response = await userService.getUserLikeds(page);
         if (response.status === 200) {
           setPosts(response.data.message);
           setTotalPages(response.data.message);

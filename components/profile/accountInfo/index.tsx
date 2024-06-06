@@ -1,4 +1,4 @@
-import route from "@/app/api/route";
+import userService from "@/app/api/services/userService";
 import { Container } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -29,7 +29,7 @@ export default function AccountInfo() {
   useEffect(() => {
     const getUserInfos = async () => {
       try {
-        const response = await route.user.getUserInfos();
+        const response = await userService.getUserInfos();
         if (response.status === 200) {
           setUser(response.data.message);
           setEditedUser(response.data.message); // Inicialmente, os campos editáveis têm os valores do usuário
@@ -68,7 +68,7 @@ export default function AccountInfo() {
   const handleUpdateUserInfo = async () => {
     try {
       // Atualizar os dados do usuário
-      const updateResponse = await route.user.updateUserInfo(
+      const updateResponse = await userService.updateUserInfo(
         editedUser.email,
         editedUser.name
       );
@@ -95,7 +95,7 @@ export default function AccountInfo() {
       }
 
       // Atualizar os dados do usuário
-      const updateResponse = await route.user.updateUserPassword(
+      const updateResponse = await userService.updateUserPassword(
         oldPassword,
         newPassword
       );

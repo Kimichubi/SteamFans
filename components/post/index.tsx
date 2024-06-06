@@ -1,4 +1,5 @@
-import route from "@/app/api/route";
+import categoryService from "@/app/api/services/categoryService";
+import postService from "@/app/api/services/postsService";
 import { Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -21,7 +22,7 @@ export default function PostForm() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await route.category.getAllCategory(currentPage);
+      const response = await categoryService.getAllCategorys(currentPage);
 
       if (response.data.status === 200) {
         setCategorias(response.data.message);
@@ -38,7 +39,7 @@ export default function PostForm() {
     const name = formData.get("newCategoryName")?.toString();
     const imageUrl = formData.get("categoryImage");
 
-    const response = await route.category.newCategory(name!, imageUrl!);
+    const response = await categoryService.newCategory(name!, imageUrl!);
 
     if (response.status === 200) {
       const form = ev.target as HTMLFormElement;
@@ -71,7 +72,7 @@ export default function PostForm() {
     const fanArtUrl = formData.get("fanArtUrl");
     const categoryId = selectedOption;
 
-    const response = await route.posts.newPost(name!, fanArtUrl, categoryId!);
+    const response = await postService.newPost(name!, fanArtUrl, categoryId!);
 
     if (response.status === 200) {
       const form = ev.target as HTMLFormElement;

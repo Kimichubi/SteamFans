@@ -1,4 +1,3 @@
-import route from "@/app/api/route";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -21,8 +20,6 @@ const CategorysToSearch = ({ categoriasToPut, searchValue }: any) => {
   const [totalCategories, setTotalCategories] = useState(
     categoriasToPut.length
   );
-
-  
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,

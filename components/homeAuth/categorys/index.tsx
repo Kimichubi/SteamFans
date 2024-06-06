@@ -1,4 +1,4 @@
-import route from "@/app/api/route";
+
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -17,6 +17,7 @@ import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import Link from "next/link";
 import SectionContent from "../sectionContent";
 import "./style.css";
+import categoryService from "@/app/api/services/categoryService";
 const Categorys = ({ categoriasToPut }: any) => {
   const [categorias, setCategorias] = useState<
     {
@@ -42,7 +43,7 @@ const Categorys = ({ categoriasToPut }: any) => {
   };
   useEffect(() => {
     const fetchCategories = async (currentPage: number) => {
-      const response = await route.category.getAllCategory(currentPage);
+      const response = await categoryService.getAllCategorys(currentPage);
 
       if (response.data.status === 200) {
         setCategorias(response.data.message);

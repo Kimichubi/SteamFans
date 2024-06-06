@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
-import route from "@/app/api/route";
+
 import CategorysToSearch from "../../categorysSearch";
+import userService from "@/app/api/services/userService";
+import categoryService from "@/app/api/services/categoryService";
 
 interface Categorys {
   id: number;
@@ -39,7 +41,7 @@ export default function HeaderAuth() {
     async function fetchUserInfos() {
       // Alteração de FetchUserInfos para fetchUserInfos (convenção camelCase)
       try {
-        const response = await route.user.getUserInfos();
+        const response = await userService.getUserInfos();
 
         if (response.status === 200) {
           setUser({ name: response.data.message.name });
@@ -57,7 +59,7 @@ export default function HeaderAuth() {
   };
 
   const searchCategorys = async (ev: any) => {
-    const response = await route.category.categorySearch(searchParams, page);
+    const response = await categoryService.categorySearch(searchParams, page);
     if (response.status === 200) {
       setCategorys(response.data.message);
     }

@@ -2,7 +2,7 @@
 import { Inter } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import route from "../api/route";
+import userService from "../api/services/userService";
 
 export default function RootLayout({
   children,
@@ -13,7 +13,7 @@ export default function RootLayout({
   useEffect(() => {
     async function FetchUserInfos() {
       try {
-        const response = await route.user.getUserInfos();
+        const response = await userService.getUserInfos();
         if (response.status === 200) {
           setUser({ name: response.data.message.name });
         }

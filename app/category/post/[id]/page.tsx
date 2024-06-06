@@ -1,5 +1,5 @@
 "use client";
-import route from "@/app/api/route";
+
 import HeaderAuth from "@/components/homeAuth/header";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +20,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import postService from "@/app/api/services/postsService";
+import userService from "@/app/api/services/userService";
 
 interface Post {
   id: number;
@@ -54,14 +56,14 @@ export default function PagePost() {
   useEffect(() => {
     async function fetchPostInfos() {
       try {
-        const response = await route.posts.postById(Number(router.id));
+        const response = await postService.postById(Number(router.id));
         if (response.status === 200) {
           const post = response.data.message;
           setPost(post);
 
           const [likeResponse, favoriteResponse] = await Promise.all([
-            route.user.isLikedPost(post.categoryId, post.id),
-            route.user.isFavoritedPost(post.categoryId, post.id),
+            userService.isLiked(post.categoryId, post.id),
+            userService.isFavorited(post.categoryId, post.id),
           ]);
 
           if (likeResponse.status === 200) {
@@ -83,7 +85,7 @@ export default function PagePost() {
   const handleLikePost = async () => {
     try {
       if (isLiked) {
-        await route.posts.unLikePost(
+        await postService.unLikePost(
           Number(router.id),
           Number(post?.categoryId)
         );
@@ -96,7 +98,7 @@ export default function PagePost() {
             }
         );
       } else {
-        await route.posts.likePost(Number(router.id), Number(post?.categoryId));
+        await postService.likePost(Number(router.id), Number(post?.categoryId));
         setIsLiked(true);
         setPost(
           (prevPost) =>
@@ -114,7 +116,7 @@ export default function PagePost() {
   const handleFavoritePost = async () => {
     try {
       if (isFavorited) {
-        await route.posts.unFavoritePost(
+        await postService.unFavoritePost(
           Number(router.id),
           Number(post?.categoryId)
         );
@@ -130,7 +132,7 @@ export default function PagePost() {
             }
         );
       } else {
-        await route.posts.favoritePost(
+        await postService.favoritePost(
           Number(router.id),
           Number(post?.categoryId)
         );

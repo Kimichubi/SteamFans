@@ -1,18 +1,17 @@
 "use client";
-
 import { Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./style.css";
 import SlideShow from "@/components/commons/carousel";
-import route from "@/app/api/route";
-
+import postService from "@/app/api/services/postsService";
 export default function SectionContent({ text }: any) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const response = await route.posts.fetPosts();
+        const response = await postService.fetchPosts();
+        console.log(response);
         //  @ts-ignore
         setPosts(response.data.message);
         console.log(response.data.message);

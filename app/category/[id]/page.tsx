@@ -1,5 +1,5 @@
 "use client";
-import route from "@/app/api/route";
+
 import HeaderAuth from "@/components/homeAuth/header";
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import {
@@ -22,6 +22,9 @@ import Link from "next/link";
 import FooterNoAuth from "@/components/homeNoAuth/footer";
 import PostsToSearch from "@/components/postSearch";
 import { useRouter } from "next/navigation";
+import categoryService from "@/app/api/services/categoryService";
+import userService from "@/app/api/services/userService";
+import postService from "@/app/api/services/postsService";
 
 interface Category {
   id: number;
@@ -72,7 +75,7 @@ export default function PageCategory() {
   useEffect(() => {
     const getCategory = async (page: number) => {
       try {
-        const response = await route.category.getOneCategory(
+        const response = await categoryService.getOneCategory(
           Number(router.id),
           page
         );
@@ -82,7 +85,7 @@ export default function PageCategory() {
           setCategoria(categoryData);
           setTotalPages(Math.ceil(response.data.message.posts / 10)); // Assumindo 10 posts por página
 
-          const followResponse = await route.user.isFollowingCategory(
+          const followResponse = await userService.isFollowingCategory(
             Number(router.id)
           );
           setFollowing(followResponse.status === 200);
@@ -98,7 +101,7 @@ export default function PageCategory() {
 
   const searchPosts = async (ev: any) => {
     ev.preventDefault();
-    const response = await route.posts.postSearch(
+    const response = await postService.postSearch(
       searchParams,
       currentPage,
       Number(router.id)
@@ -112,9 +115,9 @@ export default function PageCategory() {
   const handleFollowCategory = async (categoryId: number) => {
     try {
       if (following) {
-        await route.category.unFollowCategory(categoryId);
+        await categoryService.unFollowCategory(categoryId);
       } else {
-        await route.category.followCategory(categoryId);
+        await categoryService.followCategory(categoryId);
       }
       setFollowing(!following);
     } catch (err) {
@@ -124,14 +127,14 @@ export default function PageCategory() {
 
   const handleLikePost = async (postId: number) => {
     try {
-      const response = await route.user.isLikedPost(
+      const response = await userService.isLiked(
         Number(router.id),
         Number(postId)
       );
       if (response.status === 200) {
-        await route.posts.unLikePost(Number(postId), Number(router.id));
+        await postService.unLikePost(Number(postId), Number(router.id));
       } else {
-        await route.posts.likePost(Number(postId), Number(router.id));
+        await postService.likePost(Number(postId), Number(router.id));
       }
       setCategoria((prevCategoria) => {
         if (!prevCategoria) return prevCategoria;
@@ -160,14 +163,14 @@ export default function PageCategory() {
 
   const handleFavoritePost = async (postId: number) => {
     try {
-      const response = await route.user.isFavoritedPost(
+      const response = await userService.isFavorited(
         Number(router.id),
         Number(postId)
       );
       if (response.status === 200) {
-        await route.posts.unFavoritePost(Number(postId), Number(router.id));
+        await postService.unFavoritePost(Number(postId), Number(router.id));
       } else {
-        await route.posts.favoritePost(Number(postId), Number(router.id));
+        await postService.favoritePost(Number(postId), Number(router.id));
       }
       setCategoria((prevCategoria) => {
         if (!prevCategoria) return prevCategoria;

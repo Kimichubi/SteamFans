@@ -1,7 +1,8 @@
-import route from "@/app/api/route";
+
 import { Container, Typography, Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import userService from "@/app/api/services/userService";
 
 export default function SectionContent() {
   const [user, setUser] = useState({ name: "" });
@@ -10,7 +11,7 @@ export default function SectionContent() {
   useEffect(() => {
     async function fetchUserInfos() {
       try {
-        const response = await route.user.getUserInfos();
+        const response = await userService.getUserInfos();
         if (response.status === 200) {
           setUser({ name: response.data.message.name });
         }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SlideShow from "../../commons/carousel";
-import route from "@/app/api/route";
+
 import {
   Container,
   Grid,
@@ -11,6 +11,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import "./style.css";
+import postService from "@/app/api/services/postsService";
 
 export default function RecentPosts({ text }: any) {
   const [posts, setPosts] = useState([]);
@@ -18,7 +19,7 @@ export default function RecentPosts({ text }: any) {
 
   useEffect(() => {
     const getRecentlyPosts = async () => {
-      const response = await route.posts.likedPosts();
+      const response = await postService.likedsPosts();
 
       if (response.status === 200) {
         console.log(response.data.message);
